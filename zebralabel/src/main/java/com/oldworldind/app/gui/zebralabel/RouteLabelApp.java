@@ -24,10 +24,12 @@ public class RouteLabelApp {
 
     private static void createPickandRunLabelPanel() {
          JFrame jf = new JFrame("Label Router");
+         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        LabelPrintManagerForm pmf = LabelPrintManagerForm.getInstance();
+        pmf.setOpaque(true); //content panes must be opaque
+        jf.setContentPane(pmf);
         jf.pack();
         jf.setVisible(true);
     }
