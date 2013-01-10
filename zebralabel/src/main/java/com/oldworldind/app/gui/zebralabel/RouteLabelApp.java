@@ -3,17 +3,21 @@ package com.oldworldind.app.gui.zebralabel;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import org.apache.log4j.Logger;
+
 /**
  * @since Dec 15, 2012 at 1:26:44 AM
  * @author mcolegrove
  */
 public class RouteLabelApp {
+    private static final Logger LOG = Logger.getLogger(RouteLabelApp.class);
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         displayUsage();
-        System.out.println("Hello World!");
+        System.out.println("RouteLabelApp!");
+        LOG.info("RouteLabelApp started");
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -23,7 +27,7 @@ public class RouteLabelApp {
     }
 
     private static void createPickandRunLabelPanel() {
-         JFrame jf = new JFrame("Label Router");
+         JFrame jf = new JFrame("Route Label App");
          jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
@@ -38,7 +42,7 @@ public class RouteLabelApp {
      *
      */
     private static void displayUsage() {
-        System.out.println("RouteLabel requires parameters see below");
-        System.out.println("java RouteLabel <input File to Route>  <device>");
+        System.out.println("RouteLabelApp users parameters as seen below");
+        System.out.println("java RouteLabelApp <input File to Route>  <device>");
     }
 }
