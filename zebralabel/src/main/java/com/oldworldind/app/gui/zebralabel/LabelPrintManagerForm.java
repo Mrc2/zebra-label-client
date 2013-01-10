@@ -75,7 +75,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
     private final LabelDataModel dm;
 
     public static LabelPrintManagerForm getInstance() {
-        return new LabelPrintManagerForm("MEBANKE", "");
+        return new LabelPrintManagerForm("orderLabels.wri", "");
     }
 
     public static LabelPrintManagerForm getInstance(String pathToZipFiles, String zplPrinterName) {
@@ -425,24 +425,8 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 
         jTextLabelMatchStr.setText(fullName);
         DocPrintJob job = psZebra.createPrintJob();
-//        byte[] by = getTestStringBytes();
-//        byte[] by = getSampleLabelBytes();
-//        byte[] by = getScoopedLabelBytes();
         byte[] by = getScoopedCustomLabelBytes();
 
-        /**
-         * TEXT_PLAIN_UTF_8 => text/plain; charset=utf-8
-         */
-//        DocFlavor flavor = DocFlavor.BYTE_ARRAY.TEXT_PLAIN_UTF_8;
-        /**
-         * TEXT_PLAIN_US_ASCII => text/plain; charset=us-ascii
-         */
-//        DocFlavor flavor = DocFlavor.BYTE_ARRAY.TEXT_PLAIN_US_ASCII;
-        /**
-         * Label content flavor =>text/plain;charset=Cp1252
-         *
-         */
-//        DocFlavor flavor = new DocFlavor("text/plain",Charset.forName("Cp1252").getClass().getName());
         DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
 
         Doc doc = new SimpleDoc(by, flavor, null);
@@ -570,33 +554,6 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
     }
     private static final String WINDOWS_LINE_END = "\r\n";
 
-    private byte[] getSampleLabelBytes() {
-
-        String lineEnd = OTHER_LINE_END;
-        String s = "";
-        s = s + "N" + lineEnd;
-        s = s + "Q380,24" + lineEnd;
-        s = s + "R203,20" + lineEnd;
-        s = s + "S2" + lineEnd;
-        s = s + "A60,0,0,2,3,2,N,\"00-0000-00\"" + lineEnd;
-        s = s + "B8,140,0,UA0,2,3,100,B,\"00000000000\"" + lineEnd;
-        s = s + "B10,260,0,3,2,4,50,N,\"00-0000-00\"" + lineEnd;
-        s = s + "P1" + OTHER_LINE_END;
-        return s.getBytes(Charset.forName("UTF-8"));
-    }
-
-    private byte[] getTestStringBytes() {
-        String s = "N\r\n";
-        s = s + "Q380,24\r\n";
-        s = s + "R203,20\r\n";
-        s = s + "S2\r\n";
-        s = s + "A60,0,0,2,3,2,N,\"00-0000-00\"\r\n";
-        s = s + "B8,140,0,UA0,2,3,100,B,\"00000000000\"\r\n";
-        s = s + "B10,260,0,3,2,4,50,N,\"00-0000-00\"\r\n";
-        s = s + "P1\r\n";
-        return s.getBytes();
-    }
-
     private byte[] getScoopedCustomLabelBytes() {
         String lineEnd = OTHER_LINE_END;
         StringBuilder buf = new StringBuilder(123);
@@ -635,84 +592,23 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         buf.append("^XA^MCY^XZ^XA^ILLB^FS").append(lineEnd);
         buf.append("^FO0000,0000^AAN,0000,0000^FD ^FS").append(lineEnd);
 
-        buf.append("^FO0024,0046^ABN,0011,0007^FDOld World Industries, LLC^FS").append(lineEnd);
+        buf.append("^FO0024,0046^ABN,0011,0007^FDOld World Industries, Check^FS").append(lineEnd);
         buf.append("^FO0024,0074^ABN,0011,0007^FD5000 W 41ST ST (MFG PLANT)^FS").append(lineEnd);
 
-        buf.append("^FO0317,0050^AFN,0026,0013^FDAUTOZONE INC DC #33^FS").append(lineEnd);
+        buf.append("^FO0317,0050^AFN,0026,0013^FDCustomer Location #33^FS").append(lineEnd);
         buf.append("^FO0068,0263^A0N,0032,0040^FD(420) 61834^FS").append(lineEnd);
 
         DateFormat fdfd = new SimpleDateFormat(DATE_DISPLAYPATTERN);
-//        FastDateFormat fdfd = FastDateFormat.getInstance(DATE_DISPLAYPATTERN);
+        
         String dayTime = fdfd.format(new Date());
         buf.append("^FO0024,0092^ABN,0011,0007^FD").append(dayTime).append("^FS").append(lineEnd);
         String user = System.getProperty("user.name");
         buf.append("^FO0024,0110^ABN,0011,0007^FD").append("User:").append(user).append("^FS").append(lineEnd);
-        buf.append("^FO0024,0150^ABN,0011,0007^FDCICERO, IL 60804-4524^FS").append(lineEnd);
+        buf.append("^FO0024,0150^ABN,0011,0007^FDTest Ville, IL 60804-4524^FS").append(lineEnd);
         buf.append("^FO0317,0080^ADN,0018,0010^FD800 N LYNCH SPUR^FS").append(lineEnd);
-        buf.append("^FO0317,0156^ADN,0018,0010^FDDANVILLE, IL 61834-9102^FS").append(lineEnd);
+        buf.append("^FO0317,0156^ADN,0018,0010^FDDAnyWHere, USA 11111-9102^FS").append(lineEnd);
         buf.append("FO0520,0217^A0N,0028,0033^FDWLEL^FS").append(lineEnd);
-        buf.append("^FO0506,0303^A0N,0028,0033^FD98846000^FS").append(lineEnd);
-        buf.append("^FO0060,0303^BY03,3,100^BCN,0140,N,N^FD>;>842061834^FS").append(lineEnd);
-
-        buf.append("^FO0128,0516^A0N,0032,0040^FD33906581^FS").append(lineEnd);
-        buf.append("^FO0024,0633^ADN,0018,0010^FDIUM: 36 CS^FS").append(lineEnd);
-        buf.append("^FO0024,0709^ADN,0018,0010^FD36 CS of Part: PRA0B3-02^FS").append(lineEnd);
-        buf.append("^FO0024,0659^ADN,0018,0010^FDSUM: 216 GAL^FS").append(lineEnd);
-        buf.append("^FO0076,0880^ADN,0036,0020^FD00 1 0074804 400000025 7^FS").append(lineEnd);
-        buf.append("^FO0058,0920^BY04,3,100^BCN,0263,N,N^FD>;>800100748044000000257^FS").append(lineEnd);
-        buf.append("^PQ0002,0000,0000,N^FS^MCN^XZ").append(lineEnd);
-        buf.append("<----------------------------------break1--------------------------------------->").append(lineEnd);
-
-        return buf.toString().getBytes(Charset.forName(ZplFileParser.BYTE_CHAR_READER));
-    }
-
-    private byte[] getScoopedLabelBytes() {
-        String lineEnd = OTHER_LINE_END;
-        StringBuilder buf = new StringBuilder(123);
-        buf.append("<------------------------------Click file, print, select Zebra printer, press print--------------------------------------->").append(lineEnd);
-
-        buf.append("~CC^").append(lineEnd);
-        buf.append("^XA^JMA^FS^XZ").append(lineEnd);
-        buf.append("^XA^SS,,,1223^FS^XZ").append(lineEnd);
-        buf.append("^XA^MNY^FS^XZ").append(lineEnd);
-        buf.append("^XA^MMT^FS^XZ").append(lineEnd);
-        buf.append("^XA^MD+00^FS^XZ").append(lineEnd);
-        buf.append("^XA^PRC^FS^XZ").append(lineEnd);
-        buf.append("^XA^IDR:*.GRF^XZ").append(lineEnd);
-        buf.append("^XA^IDR:*.*^XZ").append(lineEnd);
-        buf.append("^XA^MCY^XZ").append(lineEnd);
-
-        buf.append("^XA^LH0000,0000^FS^PON^FS").append(lineEnd);
-        buf.append("^FO0301,0012^GB0000,0190,0004^FS").append(lineEnd);
-        buf.append("^FO0016,0016^A0N,0028,0033^FDSUPPLIER:^FS").append(lineEnd);
-        buf.append("^FO0319,0020^A0N,0028,0033^FDSHIP TO:^FS").append(lineEnd);
-        buf.append("^FO0016,0203^GB0777,0000,0004^FS").append(lineEnd);
-        buf.append("^FO0393,0203^GB0000,0265,0004^FS").append(lineEnd);
-        buf.append("^FO0020,0213^A0N,0022,0026^FDShip to Postal Code:^FS").append(lineEnd);
-        buf.append("^FO0408,0215^A0N,0028,0033^FDCarrier:^FS").append(lineEnd);
-        buf.append("^FO0406,0253^A0N,0028,0033^FDPRO #^FS").append(lineEnd);
-        buf.append("^FO0406,0303^A0N,0028,0033^FDB/L #^FS").append(lineEnd);
-
-        buf.append("^FO0010,0466^GB0775,0000,0004^FS").append(lineEnd);
-        buf.append("^FO0010,0582^GB0773,0000,0004^FS").append(lineEnd);
-        buf.append("^FO0026,0514^A0N,0039,0046^FDPO#:^FS").append(lineEnd);
-        buf.append("^FO0010,0812^GB0775,0000,0004^FS").append(lineEnd);
-        buf.append("^FO0068,0836^A0N,0028,0033^FDSSCC-18^FS").append(lineEnd);
-        buf.append("^FO0062,0880^ADN,0036,0020^FD(^FS").append(lineEnd);
-        buf.append("^FO0116,0880^ADN,0036,0020^FD)^FS").append(lineEnd);
-        buf.append("^ISLB,N^FS^XZ").append(lineEnd);
-        buf.append("^XA^MCY^XZ^XA^ILLB^FS").append(lineEnd);
-        buf.append("^FO0000,0000^AAN,0000,0000^FD ^FS").append(lineEnd);
-
-        buf.append("^FO0024,0046^ABN,0011,0007^FDOld World Industries, LLC^FS").append(lineEnd);
-        buf.append("^FO0024,0074^ABN,0011,0007^FD5000 W 41ST ST (MFG PLANT)^FS").append(lineEnd);
-        buf.append("^FO0317,0050^AFN,0026,0013^FDAUTOZONE INC DC #33^FS").append(lineEnd);
-        buf.append("^FO0068,0263^A0N,0032,0040^FD(420) 61834^FS").append(lineEnd);
-        buf.append("^FO0024,0150^ABN,0011,0007^FDCICERO, IL 60804-4524^FS").append(lineEnd);
-        buf.append("^FO0317,0080^ADN,0018,0010^FD800 N LYNCH SPUR^FS").append(lineEnd);
-        buf.append("^FO0317,0156^ADN,0018,0010^FDDANVILLE, IL 61834-9102^FS").append(lineEnd);
-        buf.append("FO0520,0217^A0N,0028,0033^FDWLEL^FS").append(lineEnd);
-        buf.append("^FO0506,0303^A0N,0028,0033^FD98846000^FS").append(lineEnd);
+        buf.append("^FO0506,0303^A0N,0028,0033^FD66666600^FS").append(lineEnd);
         buf.append("^FO0060,0303^BY03,3,100^BCN,0140,N,N^FD>;>842061834^FS").append(lineEnd);
 
         buf.append("^FO0128,0516^A0N,0032,0040^FD33906581^FS").append(lineEnd);
