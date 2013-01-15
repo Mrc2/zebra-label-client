@@ -11,7 +11,7 @@ import javax.swing.JTextArea;
 
 /**
  * @since Dec 29, 2012 at 7:10:11 PM
- * @author mcolegrove 
+ * @author mcolegrove
  */
 class JobStatusListener implements PrintJobListener {
     private static final String NEWLINE = "\n";
@@ -29,35 +29,30 @@ class JobStatusListener implements PrintJobListener {
 
     @Override
     public void printJobCompleted(PrintJobEvent pje) {
-
-         log.append("print Job Completed: " + pje.getPrintJob().getAttributes() + NEWLINE);
+        log.append("print Job Completed: " + pje.getPrintJob().getAttributes() + NEWLINE);
         log.setCaretPosition(log.getDocument().getLength());
     }
 
     @Override
     public void printJobFailed(PrintJobEvent pje) {
-
         log.append("print Job failed: " + pje.getPrintJob() + NEWLINE);
         log.setCaretPosition(log.getDocument().getLength());
     }
 
     @Override
     public void printJobCanceled(PrintJobEvent pje) {
-
         log.append("print Job Cancelled: " + pje.getPrintJob() + NEWLINE);
         log.setCaretPosition(log.getDocument().getLength());
     }
 
     @Override
     public void printJobNoMoreEvents(PrintJobEvent pje) {
-
         Color caretprior = log.getCaretColor();
         Color fore = log.getForeground();
         log.setCaretColor(Color.red);
         log.setForeground(Color.green);
         log.append("print Job No More Events: Device cannot report events: " + pje.getPrintJob() + NEWLINE);
         log.setCaretPosition(log.getDocument().getLength());
-
 
         log.append("print Job No More Events: Device cannot report events: " + pje.getPrintJob().getAttributes() + NEWLINE);
         log.setCaretPosition(log.getDocument().getLength());
@@ -69,8 +64,8 @@ class JobStatusListener implements PrintJobListener {
             if (attribute instanceof PrintJobAttribute) {
                 PrintJobAttribute pja = (PrintJobAttribute) attribute;
 
-            log.append("attr name:" + pja.getName() + " Category:" + pja.getCategory() + " toString:" + attribute.toString() + NEWLINE);
-            log.setCaretPosition(log.getDocument().getLength());
+                log.append("attr name:" + pja.getName() + " Category:" + pja.getCategory() + " toString:" + attribute.toString() + NEWLINE);
+                log.setCaretPosition(log.getDocument().getLength());
             }
         }
         log.setCaretColor(caretprior);
@@ -83,5 +78,4 @@ class JobStatusListener implements PrintJobListener {
         log.append("print Job Requires attention: " + pje.getPrintJob() + NEWLINE);
         log.setCaretPosition(log.getDocument().getLength());
     }
-
 }

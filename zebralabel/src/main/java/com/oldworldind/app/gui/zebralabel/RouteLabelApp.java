@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
  */
 public class RouteLabelApp {
     private static final Logger LOG = Logger.getLogger(RouteLabelApp.class);
+
     /**
      * @param args the command line arguments
      */
@@ -28,8 +29,8 @@ public class RouteLabelApp {
 
     private static void createPickandRunLabelPanel() {
          JFrame jf = new JFrame("Route Label App");
-         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   not preferred in an applet
 
         LabelPrintManagerForm pmf = LabelPrintManagerForm.getInstance();
         pmf.setOpaque(true); //content panes must be opaque

@@ -9,20 +9,21 @@ import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @since Dec 29, 2012 at 6:55:29 PM
- * @author mcolegrove 
+ * @author mcolegrove
  */
 public final class ZplFileParser {
-    private static final String BYTES_UTF_8 = "UTF-8";
+    private static final Logger LOG = Logger.getLogger(ZplFileParser.class);
+//    private static final String BYTES_UTF_8 = "UTF-8";
     private static final String BYTES_WINDOWS_WTF = "Cp1252";
     public static final String BYTE_CHAR_READER = BYTES_WINDOWS_WTF;
+
     static Map<String, Object> parse(File file) {
         Map<String, Object> res = new HashMap<String, Object>();
         if (file == null || FileUtils.sizeOf(file) < 2) {
@@ -51,13 +52,13 @@ public final class ZplFileParser {
                 bufferRead = is.read(buf);
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ZplFileParser.class.getName()).log(Level.WARNING, null, ex);
+            LOG.warn("file not found:" + file, ex);
         } catch (IOException ex) {
-            Logger.getLogger(ZplFileParser.class.getName()).log(Level.WARNING, null, ex);
+            LOG.warn("IO problem with file:" + file, ex);
         } finally {
             cleanup(is);
         }
-        Logger.getLogger(ZplFileParser.class.getName()).log(Level.WARNING, "buffer input bytes read:" + bytesRead);
+        LOG.info("buffer input bytes read:" + bytesRead);
         res.put("page-count", pageCount);
         return res;
     }
@@ -70,7 +71,7 @@ public final class ZplFileParser {
             is.close();
             return true;
         } catch (IOException ex) {
-            Logger.getLogger(ZplFileParser.class.getName()).log(Level.INFO, null, ex);
+            LOG.info("failed stream cleanup", ex);
         }
         return false;
     }

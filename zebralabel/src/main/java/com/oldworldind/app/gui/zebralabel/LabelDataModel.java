@@ -10,6 +10,7 @@ import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
 
 import org.apache.commons.lang3.time.FastDateFormat;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -17,6 +18,7 @@ import org.apache.commons.lang3.time.FastDateFormat;
  * @author mcolegrove 
  */
 class LabelDataModel extends DefaultTableModel {
+    private static final Logger LOG = Logger.getLogger(LabelDataModel.class);
     private static final long serialVersionUID = 4183629661904518943L;
     public static final String COL_SEL = "Sel";
     public static final String COL_FILE = "File";
@@ -39,8 +41,7 @@ class LabelDataModel extends DefaultTableModel {
         batColProps.put(COL_PAGE_COUNT, Integer.valueOf(ccount++));
         batColProps.put(COL_PRINTED_ON, Integer.valueOf(ccount++));
 
-        System.out.println(" col count:" + ccount);
-
+        LOG.info(" col count:" + ccount);
         columnNames = (String[]) Array.newInstance(String.class, ccount);
 
         for (Iterator<String> it = batColProps.stringPropertyNames().iterator(); it.hasNext();) {
@@ -55,7 +56,7 @@ class LabelDataModel extends DefaultTableModel {
     }
 
     public boolean addFileInfo(File file, String zplPattern, long entries, long labelCount, Date lastPrinted) {
-        System.out.println("add info:" + file);
+        LOG.info("add info:" + file);
         FastDateFormat fmt = FastDateFormat.getInstance(DATE_DISPLAYPATTERN);
         JRadioButton colSelect = new JRadioButton("");
         String batchDate = getFormattedDate(fmt, lastPrinted);
