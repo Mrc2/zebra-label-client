@@ -6,69 +6,48 @@ import javax.print.attribute.PrintServiceAttribute;
 import javax.print.attribute.standard.PrinterMakeAndModel;
 import javax.print.attribute.standard.PrinterName;
 
+import org.apache.log4j.Logger;
+
 /**
  *
  * @since Dec 28, 2012 at 5:34:19 PM
- * @author mcolegrove 
+ * @author mcolegrove
  */
 public class PrinterFinderSvc {
-
-    public String getFirstHomePrinterName() {
-
-        PrintService psZebra = null;
-        String sPrinterName = null;
-        PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
-        for (int i = 0; i < services.length; i++) {
-            PrintServiceAttribute attr = services[i].getAttribute(PrinterName.class);
-            PrinterMakeAndModel mam = services[i].getAttribute(PrinterMakeAndModel.class);
-            sPrinterName = ((PrinterName) attr).getValue();
-            System.out.println("Found printer: " + sPrinterName + "\n");
-
-            System.out.println("printer type: " + mam + "\n");
-        if (sPrinterName.indexOf("Officejet") > -1) {
-                return sPrinterName;
-            }
-        }
-        System.out.println("Finshed\n");
-
-        return null;
-    }
+    private static final Logger LOG = Logger.getLogger(PrinterFinderSvc.class);
 
     public String getFirstLabelPrinterName() {
-
-        return getFirstLabelPrinterName("32");
+        return getFirstLabelPrinterName("Zebra");
     }
 
     String getFirstLabelPrinterName(String nameToMatch) {
 
-        PrintService psZebra = null;
         String sPrinterName = null;
         PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
         for (int i = 0; i < services.length; i++) {
             PrintServiceAttribute attr = services[i].getAttribute(PrinterName.class);
             PrinterMakeAndModel mam = services[i].getAttribute(PrinterMakeAndModel.class);
             sPrinterName = ((PrinterName) attr).getValue();
-            System.out.println("Found printer: " + sPrinterName + "\n");
-
-            System.out.println("printer type: " + mam + "\n");
-        if (sPrinterName.indexOf(nameToMatch) > -1) {
+            LOG.info("Found printer: " + sPrinterName + "\n");
+            LOG.info("printer type: " + mam + "\n");
+            if (sPrinterName.indexOf(nameToMatch) > -1) {
                 return sPrinterName;
             }
         }
-        System.out.println("Finshed\n");
+        LOG.info("Finshed\n");
 
         return null;
     }
 
     PrintService getFirstLabelPrinterServiceNamed(String fullName) {
         PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
-			for (int i = 0; i < services.length; i++) {
-				PrintServiceAttribute attr = services[i].getAttribute(PrinterName.class);
-				String sPrinterName = ((PrinterName)attr).getValue();
-				if (sPrinterName.indexOf(fullName) >= 0) {
-					return services[i];
-				}
-			}
-            return null;
+        for (int i = 0; i < services.length; i++) {
+            PrintServiceAttribute attr = services[i].getAttribute(PrinterName.class);
+            String sPrinterName = ((PrinterName) attr).getValue();
+            if (sPrinterName.indexOf(fullName) >= 0) {
+                return services[i];
+            }
+        }
+        return null;
     }
 }

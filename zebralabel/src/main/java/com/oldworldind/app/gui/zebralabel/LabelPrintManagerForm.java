@@ -419,7 +419,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         log.append("matching printers:" + fullName + OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
 
-        log.append("matching home printers:" + svc.getFirstHomePrinterName() + OTHER_LINE_END);
+        log.append("matching home printers:" + svc.getFirstLabelPrinterName("Officejet") + OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
 
         PrintService psZebra = svc.getFirstLabelPrinterServiceNamed(fullName);
