@@ -1,5 +1,6 @@
 package com.oldworldind.app.gui.zebralabel;
 
+import java.awt.Container;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import javax.print.PrintException;
 import javax.print.PrintService;
 import javax.print.SimpleDoc;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -27,7 +29,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
-
 
 /**
  *
@@ -108,7 +109,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         //#FYI  Pre Creation Code of the JPanel
         String zplpath = getDefaultZplPath(pathToZipFilesDefault);
         systemPanel = new javax.swing.JPanel();
-        JLabelMatchString = new javax.swing.JLabel();
+        jLabelMatchString = new javax.swing.JLabel();
         //#FYI  Enables starting lookup point for Zpl Files
         final String pathToArchive = getDefaultZplPath(pathToZipFilesDefault);
         archivePathTextField = new javax.swing.JTextField();
@@ -130,6 +131,12 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         setBackground(new java.awt.Color(204, 204, 255));
 
         jCloseButton.setText("Close");
+        jCloseButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCloseButtonActionPerformed(evt);
+            }
+        });
 
         jProgressBar1.setBackground(new java.awt.Color(153, 255, 102));
         jProgressBar1.setForeground(new java.awt.Color(153, 102, 255));
@@ -150,7 +157,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             }
         });
 
-        JLabelMatchString.setText("Label Printer  PartialName");
+        jLabelMatchString.setText("Label Printer  PartialName");
 
         archivePathTextField.setText(pathToArchive);
 
@@ -181,7 +188,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jLabel2)
-            .add(JLabelMatchString))
+            .add(jLabelMatchString))
             .add(10, 10, 10))
             .add(systemPanelLayout.createSequentialGroup()
             .addContainerGap()
@@ -208,7 +215,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
             .add(jTextLabelMatchStr, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(JLabelMatchString))
+            .add(jLabelMatchString))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
             .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 127, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addContainerGap(12, Short.MAX_VALUE)));
@@ -268,13 +275,10 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-            .add(405, 405, 405)
-            .add(jScrollPane2)
-            .addContainerGap())
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
             .add(43, 43, 43)
-            .add(jProgressBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 570, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(jProgressBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 570, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .add(layout.createSequentialGroup()
             .add(69, 69, 69)
             .add(openButton)
@@ -282,24 +286,28 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             .add(parseButton)
             .add(18, 18, 18)
             .add(jPrintLabelFileButton)
-            .add(93, 93, 93)
+            .add(18, 18, 18)
             .add(jPrinterTestButton)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(jCloseButton)
-            .add(61, 61, 61))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jCloseButton)))
+            .addContainerGap(167, Short.MAX_VALUE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+            .add(0, 0, Short.MAX_VALUE)
+            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 400, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(22, 22, 22))
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
             .add(55, 55, 55)
             .add(systemPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 322, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(488, Short.MAX_VALUE))));
+            .addContainerGap(423, Short.MAX_VALUE))));
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
             .addContainerGap()
             .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 314, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(jProgressBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(33, 33, 33)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 12, Short.MAX_VALUE)
+            .add(jProgressBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(18, 18, 18)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
             .add(jCloseButton)
             .add(openButton)
@@ -411,7 +419,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         log.append("matching printers:" + fullName + OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
 
-        log.append("matching home printers:" + svc.getFirstHomePrinterName() + OTHER_LINE_END);
+        log.append("matching home printers:" + svc.getFirstLabelPrinterName("Officejet") + OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
 
         PrintService psZebra = svc.getFirstLabelPrinterServiceNamed(fullName);
@@ -501,14 +509,25 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         log.setCaretPosition(log.getDocument().getLength());
         // TODO add your handling code here:
     }
+
+    private void jCloseButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        LOG.warn("do close");
+        Container frame = jCloseButton.getParent();
+        while (!(frame instanceof JFrame)) {
+            frame = frame.getParent();
+        }
+        JFrame jframe = (JFrame) frame;
+        jframe.dispose();
+    }
     // Variables declaration - do not modify
-    private javax.swing.JLabel JLabelMatchString;
     private javax.swing.JTextField archivePathTextField;
     private javax.swing.JTextField barCodeImageFileName;
     private javax.swing.JTable fileInputJTable;
     private javax.swing.JButton jCloseButton;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelMatchString;
     private javax.swing.JButton jPrintLabelFileButton;
     private javax.swing.JButton jPrinterTestButton;
     private javax.swing.JProgressBar jProgressBar1;
@@ -599,7 +618,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         buf.append("^FO0068,0263^A0N,0032,0040^FD(420) 61834^FS").append(lineEnd);
 
         DateFormat fdfd = new SimpleDateFormat(DATE_DISPLAYPATTERN);
-        
+
         String dayTime = fdfd.format(new Date());
         buf.append("^FO0024,0092^ABN,0011,0007^FD").append(dayTime).append("^FS").append(lineEnd);
         String user = System.getProperty("user.name");
