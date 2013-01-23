@@ -236,13 +236,12 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             .add(archivePathTextField)
             .add(systemPanelLayout.createSequentialGroup()
             .add(6, 6, 6)
-                        .add(jTextPrinterName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))
+            .add(jTextPrinterName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(openButton)
-                    .add(jButtonLookupPrinter))
-                .add(223, 223, 223))
-        );
+            .add(jButtonLookupPrinter))
+            .add(223, 223, 223)));
         systemPanelLayout.setVerticalGroup(
             systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, systemPanelLayout.createSequentialGroup()
@@ -257,13 +256,12 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             .add(archivePathLabel))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jTextPrinterName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPrinterIdentifierLabel)
-                    .add(jButtonLookupPrinter))
+            .add(jTextPrinterName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jPrinterIdentifierLabel)
+            .add(jButtonLookupPrinter))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
             .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 127, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
+            .addContainerGap(12, Short.MAX_VALUE)));
 
         final Integer[] columnWidth = (Integer[]) Array.newInstance(Integer.class, dm.getColumnCount());
         fileInputJTable.setModel(dm);
@@ -355,16 +353,15 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             .add(jButtonPanelLayout.createSequentialGroup()
             .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(jButtonPrintTestLabel)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton2x4TestLabel)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jButton2x4TestLabel)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jButtonParse, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
+            .add(18, 18, 18)
             .add(jButtonPrintLabelFile, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 128, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(34, 34, 34)
+            .add(34, 34, 34)
             .add(jButtonClose)
-                .add(42, 42, 42))
-        );
+            .add(42, 42, 42)));
         jButtonPanelLayout.setVerticalGroup(
             jButtonPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jButtonPanelLayout.createSequentialGroup()
@@ -373,17 +370,16 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             .add(jButtonPrintLabelFile)
             .add(jButtonClose)
             .add(jButtonParse)
-                    .add(jButtonPrintTestLabel)
-                    .add(jButton2x4TestLabel))
-                .addContainerGap())
-        );
+            .add(jButtonPrintTestLabel)
+            .add(jButton2x4TestLabel))
+            .addContainerGap()));
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(systemPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 395, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
             .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 312, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -391,10 +387,9 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             .add(layout.createSequentialGroup()
             .add(50, 50, 50)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jProgressBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jButtonPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+            .add(jProgressBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(jButtonPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
@@ -406,8 +401,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             .add(jProgressBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .add(18, 18, 18)
             .add(jButtonPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
+            .addContainerGap(18, Short.MAX_VALUE)));
     }// </editor-fold>
 
     private void openButtonopenFile(java.awt.event.ActionEvent evt) {
@@ -554,7 +548,6 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
     private javax.swing.JPanel jButtonPanel;
     private javax.swing.JButton jButtonParse;
     private javax.swing.JButton jButtonPrintLabelFile;
-
     private javax.swing.JButton jButtonPrintTestLabel;
     private javax.swing.JLabel jPrinterIdentifierLabel;
     private javax.swing.JProgressBar jProgressBar1;
@@ -670,40 +663,25 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 
     private byte[] getLabelFileBytes(File labelFile) {
 
-
-        StringBuilder outputBuf = new StringBuilder();
         DataInputStream fis = null;
         try {
             fis = new DataInputStream(FileUtils.openInputStream(labelFile));
 
-            byte[] inputBuf = (byte[]) Array.newInstance(byte.class, 4096);
-            int cnt = fis.read(inputBuf);
-            while (cnt > -1) {
-                String s = new String(inputBuf, 0, cnt);
-                outputBuf.append(s);
-                cnt = fis.read(inputBuf);
+            StringBuilder outputBuf = IoUtils.pipeToBuffer(fis);
+            if (outputBuf == null) {
+                LOG.warn("label bytes :nil:");
+                return "".getBytes(Charset.forName(ZplFileParser.BYTE_CHAR_READER));
             }
-
             LOG.info("label bytes :" + outputBuf.length());
 
             return outputBuf.toString().getBytes(Charset.forName(ZplFileParser.BYTE_CHAR_READER));
         } catch (IOException ex) {
             LOG.error(ex, ex);
         } finally {
-            cleanUpInputStream(fis);
+            IoUtils.cleanUpInputStream(fis);
         }
-        return outputBuf.toString().getBytes(Charset.forName(ZplFileParser.BYTE_CHAR_READER));
-    }
-
-    private void cleanUpInputStream(DataInputStream fis) {
-        if (fis != null) {
-            try {
-                fis.close();
-
-            } catch (IOException ex) {
-                LOG.warn("Input Stream not closed", ex);
-            }
-        }
+        LOG.warn("label bytes :nil:");
+        return "".getBytes(Charset.forName(ZplFileParser.BYTE_CHAR_READER));
     }
 
     private void doPrintTestLabel(MouseEvent evt) {
@@ -764,7 +742,9 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             job.print(doc, null);
 
         } catch (PrintException e) {
-            e.printStackTrace();
+            LOG.error("Failed 4x6 TEST Label Printing", e);
+            log.append("Found printer: " + e + OTHER_LINE_END);
+            log.setCaretPosition(log.getDocument().getLength());
         }
     }
 
@@ -820,6 +800,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             job.print(doc, null);
 
         } catch (PrintException e) {
+            LOG.error("Failed Real Label Printing", e);
             log.append("Found printer: " + e + OTHER_LINE_END);
             log.setCaretPosition(log.getDocument().getLength());
         }
@@ -851,7 +832,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             log.append("service nof found for name:" + fullName + OTHER_LINE_END);
             log.setCaretPosition(log.getDocument().getLength());
             return;
-}
+        }
         log.append("Found printer: " + fullName + OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
 
@@ -868,7 +849,9 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             job.print(doc, null);
 
         } catch (PrintException e) {
-            e.printStackTrace();
+            LOG.error("Failed 2x4 TEST Label Printing", e);
+            log.append("Found printer: " + e + OTHER_LINE_END);
+            log.setCaretPosition(log.getDocument().getLength());
         }
     }
 
@@ -951,9 +934,9 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         PrintService service = ServiceUI.printDialog(null, 200, 200,
             printService, defaultService, flavor, pras);
         if (service != null) {
-           LOG.info(" selected p:" + service.getName());
-           jTextPrinterName.setText(service.getName());
-           return;
+            LOG.info(" selected p:" + service.getName());
+            jTextPrinterName.setText(service.getName());
+            return;
         }
         LOG.info("no printer selected");
     }
