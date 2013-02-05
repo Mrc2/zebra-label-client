@@ -3,8 +3,8 @@ package com.oldworldind.app.gui.zebralabel;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.Properties;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
@@ -32,7 +32,8 @@ class LabelDataModel extends DefaultTableModel {
     private int ccount = 0;
 
     public LabelDataModel() {
-        Properties batColProps = new Properties();
+
+        HashMap<String, Integer> batColProps = new HashMap<String, Integer>();
         batColProps.put(COL_SEL, Integer.valueOf(ccount++));
         batColProps.put(COL_FILE, Integer.valueOf(ccount++));
         batColProps.put(COL_LASTMODIFIED, Integer.valueOf(ccount++));
@@ -44,15 +45,18 @@ class LabelDataModel extends DefaultTableModel {
         LOG.info(" col count:" + ccount);
         columnNames = (String[]) Array.newInstance(String.class, ccount);
 
-        for (Iterator<String> it = batColProps.stringPropertyNames().iterator(); it.hasNext();) {
-            String propName = it.next();
-            columnNames[(Integer) batColProps.get(propName)] = propName;
+        for (Map.Entry<String, Integer> prop : batColProps.entrySet()) {
+            String propName = prop.getKey();
+            int element = prop.getValue();
+            columnNames[element] = propName;
+            LOG.info(" colname:" + propName + " element:"+ element);
             addColumn(propName);
         }
-        for (Iterator<String> it = batColProps.stringPropertyNames().iterator(); it.hasNext();) {
-            String propName = it.next();
-            addColumn(propName);
-        }
+//
+//        for (Iterator<String> it = batColProps.stringPropertyNames().iterator(); it.hasNext();) {
+//            String propName = it.next();
+//            addColumn(propName);
+//        }
     }
 
     public boolean addFileInfo(File file, String zplPattern, long entries, long labelCount, Date lastPrinted) {

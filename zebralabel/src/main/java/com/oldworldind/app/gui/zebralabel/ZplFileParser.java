@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,57 +23,68 @@ public final class ZplFileParser {
     private static final Logger LOG = Logger.getLogger(ZplFileParser.class);
 //    private static final String BYTES_UTF_8 = "UTF-8";
     private static final String BYTES_WINDOWS_WTF = "Cp1252";
+    private static final String START_OF_LABEL_CODE = "?XA";
+    private static final String END_OF_LABEL_CODE = "?XZ";
+    private static final String END_OF_LABEL_LINE = "?PQ";
     public static final String BYTE_CHAR_READER = BYTES_WINDOWS_WTF;
+    public static final String LABEL_COUNT_PROPERTY = "label-count";
+    public static final String FILE_SIZE_COUNT = "file-size";
+    public static final String LABEL_FILE_LASTMODIFIED_DATE = "label-file-updated";
 
     static Map<String, Object> parse(File file) {
+
         Map<String, Object> res = new HashMap<String, Object>();
-        if (file == null || FileUtils.sizeOf(file) < 2) {
+        res.put(FILE_SIZE_COUNT, Long.valueOf(0l));
+        res.put(LABEL_COUNT_PROPERTY, Integer.valueOf(0));
+        if (file == null) {
             return res;
         }
 
+        LOG.info("starting parse on:" + file);
+        long fileSize = FileUtils.sizeOf(file);
+
+        res.put(FILE_SIZE_COUNT, fileSize);
+        if (fileSize < 2) {
+            return res;
+        }
         long bytesRead = 0;
         int pageCount = 0;
         InputStream is = null;
         try {
             if (!file.isFile() || !file.canRead()) {
-                res.put("page-count", pageCount);
                 return res;
+            }
+
+            Date lastModified = new Date(file.lastModified());
+            if (lastModified != null) {
+                res.put(LABEL_FILE_LASTMODIFIED_DATE, lastModified);
             }
             is = new DataInputStream(new FileInputStream(file));
             byte[] buf = (byte[]) Array.newInstance(byte.class, 4096);
             int bufferRead = is.read(buf);
             while (bufferRead > -1) {
+                LOG.info("page read");
                 bytesRead = bytesRead + bufferRead;
                 String temp = new String(buf, BYTE_CHAR_READER);
-                int startLabelPos = temp.indexOf("^XA");
-                while (startLabelPos > -1) {
+                int startLabelPos = temp.indexOf(END_OF_LABEL_LINE);
+                int bufferPt = startLabelPos + 1;
+                while (bufferPt < bufferRead && startLabelPos > -1) {
+                    LOG.info("label found:" + END_OF_LABEL_LINE);
                     pageCount++;
-                    startLabelPos = temp.indexOf("^XA", startLabelPos);
+                    startLabelPos = temp.indexOf(END_OF_LABEL_LINE, bufferPt);
+                    bufferPt = bufferPt + startLabelPos + 1;
                 }
                 bufferRead = is.read(buf);
             }
         } catch (FileNotFoundException ex) {
-            LOG.warn("file not found:" + file, ex);
+            LOG.error("File not found vs:" + file, ex);
         } catch (IOException ex) {
-            LOG.warn("IO problem with file:" + file, ex);
+            LOG.error("Failed id vs:" + file, ex);
         } finally {
-            cleanup(is);
+            IoUtils.cleanUpInputStream(is);
         }
-        LOG.info("buffer input bytes read:" + bytesRead);
-        res.put("page-count", pageCount);
+        LOG.warn("buffer input bytes read:" + bytesRead);
+        res.put(LABEL_COUNT_PROPERTY, pageCount);
         return res;
-    }
-
-    private static boolean cleanup(InputStream is) {
-        if (is == null) {
-            return false;
-        }
-        try {
-            is.close();
-            return true;
-        } catch (IOException ex) {
-            LOG.info("failed stream cleanup", ex);
-        }
-        return false;
     }
 }
