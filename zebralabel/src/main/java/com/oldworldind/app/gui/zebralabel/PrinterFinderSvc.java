@@ -1,5 +1,9 @@
 package com.oldworldind.app.gui.zebralabel;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.regex.Pattern;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.PrintServiceAttribute;
@@ -27,28 +31,61 @@ public class PrinterFinderSvc {
             return false;
         }
 
-        int posToLeftOfPort = nameToMatch.indexOf(':');
-        int lastToLeftOfPort = nameToMatch.lastIndexOf(':');
+        int posBeforePort = nameToMatch.indexOf(':');
+        int posBeforeLastColon = nameToMatch.lastIndexOf(':');
 
-        if (posToLeftOfPort < 0) {
+        int iPort = getPort(nameToMatch);
+        if (posBeforePort != posBeforeLastColon) {
+            LOG.info("there can only be 1 colon to indicate port found:" + posBeforePort + " and:" + posBeforeLastColon);
+            return false;
+        }
+        if (iPort < 0) {
+            LOG.info("invalid value for port  at:" + posBeforePort + " from:" + nameToMatch);
+            return false;
+        }
+
+        String server = nameToMatch.substring(0, posBeforePort);
+        return IoUtils.pingServer(server, iPort);
+    }
+
+    public URL getPrinterUrl(String nameProvided) {
+
+        String fullUrlPath = "http://" + nameProvided;
+        try {
+            return new URL(fullUrlPath);
+        } catch (MalformedURLException ex) {
+            LOG.error("no url valid vs:" + fullUrlPath, ex);
+        }
+        return null;
+    }
+
+    public int getPort(String nameToMatch) {
+        if (StringUtils.isBlank(nameToMatch)) {
+            return -1;
+        }
+
+        int posBeforePort = nameToMatch.indexOf(':');
+        int posBeforeLastColon = nameToMatch.lastIndexOf(':');
+
+        if (posBeforePort < 0) {
             LOG.info("port not provided");
-            return false;
+            return -1;
         }
-        if (posToLeftOfPort != lastToLeftOfPort) {
-            LOG.info("there can only be 1 colon to indicate port found:" + posToLeftOfPort + " and:" + lastToLeftOfPort);
-            return false;
+        if (posBeforePort != posBeforeLastColon) {
+            LOG.info("there can only be 1 colon to indicate port found:" + posBeforePort + " and:" + posBeforeLastColon);
+            return -1;
         }
-        String port = nameToMatch.substring(posToLeftOfPort+1);
+        String port = nameToMatch.substring(posBeforePort + 1);
+        if (!Pattern.matches("[0-9]+", port)) {
+            LOG.info("invalid value for port found:" + port + ": at:" + posBeforePort + " from:" + nameToMatch);
+            return -1;
+        }
         int iPort = NumberUtils.toInt(port, -1);
         if (port.isEmpty() || port.length() < 1 || port.length() > 8 || !NumberUtils.isDigits(port) || iPort < 0) {
-            LOG.info("invalid value for port found:" + port + ": at:" + posToLeftOfPort + " from:" + nameToMatch);
-            return false;
+            LOG.info("invalid value for port found:" + port + ": at:" + posBeforePort + " from:" + nameToMatch);
+            return -1;
         }
-
-        // #FIXME mcc 2013-02-01 - Update this as soon - enable open a ping to the server and port to verify something is
-        //listening here
-
-        return false;
+        return iPort;
     }
 
     String getFirstLabelPrinterName(String nameToMatch) {
