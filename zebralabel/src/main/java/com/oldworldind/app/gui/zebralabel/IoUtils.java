@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Array;
+import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.Socket;
 
 import org.apache.log4j.Logger;
@@ -121,6 +123,42 @@ public final class IoUtils {
         return false;
     }
 
+    static boolean pingServer(final String serverAndProtocol, int port) {
+        Socket sock = null;
+        int timeToTryReach = 10;
+        try {
+            sock = new Socket(serverAndProtocol, port);
+
+            InetAddress addr = sock.getInetAddress();
+
+            boolean reachableInTime =  addr.isReachable(timeToTryReach);
+            LOG.info("connected to:" + addr  + " resp:" + reachableInTime + " in seconds:" + timeToTryReach);
+            return reachableInTime;
+        } catch (final MalformedURLException e1) {
+            LOG.error("Bad URL, Cannot connect to:" + serverAndProtocol + " port:" + port, e1);
+        } catch (final IOException e) {
+            LOG.error("Cannot connect to:" + serverAndProtocol + " port:" + port, e);
+        } finally {
+            cleanupSocket(sock);
+        }
+        return false;
+    }
+
+    private static boolean cleanupSocket(Socket is) {
+        if (is == null) {
+            LOG.info("no Socket to close");
+            return false;
+        }
+
+        try {
+            is.close();
+            return true;
+        } catch (IOException ex) {
+            LOG.warn("cannot close Socket:" + is + " e:" + ex.getLocalizedMessage());
+        }
+        return false;
+    }
+
     private IoUtils() {
         // no instance allowed
     }
@@ -147,12 +185,15 @@ public final class IoUtils {
         return false;
     }
 
-    public static void pipe(InputStream in, OutputStream out) throws IOException {
+    public static boolean pipe(InputStream in, OutputStream out) throws IOException {
         byte[] inputBuf = (byte[]) Array.newInstance(byte.class, 4096);
+        boolean bytesPiped = false;
         int cnt = in.read(inputBuf);
         while (cnt > -1) {
             out.write(inputBuf, 0, cnt);
+            bytesPiped = true;
             cnt = in.read(inputBuf);
         }
+        return bytesPiped;
     }
 }
