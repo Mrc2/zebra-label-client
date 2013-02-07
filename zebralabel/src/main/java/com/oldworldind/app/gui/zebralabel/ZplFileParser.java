@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,7 +26,13 @@ public final class ZplFileParser {
     private static final String BYTES_WINDOWS_WTF = "Cp1252";
     private static final String START_OF_LABEL_CODE = "?XA";
     private static final String END_OF_LABEL_CODE = "?XZ";
-    private static final String END_OF_LABEL_LINE = "?PQ";
+    private static String END_OF_LABEL_LINE = "?PQ";
+    static {
+        if (SystemUtils.IS_OS_WINDOWS) {
+            END_OF_LABEL_LINE = "¬PQ";
+        }
+        LOG.info("zipfile parsing for:" + END_OF_LABEL_LINE + ": for end of label");
+    }
     public static final String BYTE_CHAR_READER = BYTES_WINDOWS_WTF;
     public static final String LABEL_COUNT_PROPERTY = "label-count";
     public static final String FILE_SIZE_COUNT = "file-size";

@@ -123,9 +123,12 @@ public final class IoUtils {
         return false;
     }
 
-    static boolean pingServer(final String serverAndProtocol, int port) {
+    static boolean pingServer(final String serverAndProtocol, int port, int myTime) {
         Socket sock = null;
         int timeToTryReach = 10;
+        if (myTime > 0 && myTime < 61) {
+            timeToTryReach = myTime;
+        }
         try {
             sock = new Socket(serverAndProtocol, port);
 
