@@ -886,7 +886,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 
         buf.append("~CC^").append(lineEnd);
         buf.append("^XA^JMA^FS^XZ").append(lineEnd);
-        buf.append("^XA^SS,,,1223^FS^XZ").append(lineEnd);
+        buf.append("^XA^SS,,,0487^FS^XZ").append(lineEnd);
         buf.append("^XA^MNY^FS^XZ").append(lineEnd);
         buf.append("^XA^MMT^FS^XZ").append(lineEnd);
         buf.append("^XA^MD+00^FS^XZ").append(lineEnd);
@@ -894,55 +894,35 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         buf.append("^XA^IDR:*.GRF^XZ").append(lineEnd);
         buf.append("^XA^IDR:*.*^XZ").append(lineEnd);
         buf.append("^XA^MCY^XZ").append(lineEnd);
-
         buf.append("^XA^LH0000,0000^FS^PON^FS").append(lineEnd);
-        buf.append("^FO0301,0012^GB0000,0190,0004^FS").append(lineEnd);
-        buf.append("^FO0016,0016^A0N,0028,0033^FDSUPPLIER:^FS").append(lineEnd);
-        buf.append("^FO0319,0020^A0N,0028,0033^FDSHIP TO:^FS").append(lineEnd);
-        buf.append("^FO0016,0203^GB0777,0000,0004^FS").append(lineEnd);
-        buf.append("^FO0393,0203^GB0000,0265,0004^FS").append(lineEnd);
-        buf.append("^FO0020,0213^A0N,0022,0026^FDShip to Postal Code:^FS").append(lineEnd);
-        buf.append("^FO0408,0215^A0N,0028,0033^FDCarrier:^FS").append(lineEnd);
-        buf.append("^FO0406,0253^A0N,0028,0033^FDPRO #^FS").append(lineEnd);
-        buf.append("^FO0406,0303^A0N,0028,0033^FDB/L #^FS").append(lineEnd);
 
-        buf.append("^FO0010,0466^GB0775,0000,0004^FS").append(lineEnd);
-        buf.append("^FO0010,0582^GB0773,0000,0004^FS").append(lineEnd);
-        buf.append("^FO0026,0514^A0N,0039,0046^FDPO#:^FS").append(lineEnd);
-        buf.append("^FO0010,0812^GB0775,0000,0004^FS").append(lineEnd);
-        buf.append("^FO0068,0836^A0N,0028,0033^FDSSCC-18^FS").append(lineEnd);
-        buf.append("^FO0062,0880^ADN,0036,0020^FD(^FS").append(lineEnd);
-        buf.append("^FO0116,0880^ADN,0036,0020^FD)^FS").append(lineEnd);
-        buf.append("^ISLB,N^FS^XZ").append(lineEnd);
-        buf.append("^XA^MCY^XZ^XA^ILLB^FS").append(lineEnd);
-        buf.append("^FO0000,0000^AAN,0000,0000^FD ^FS").append(lineEnd);
+        buf.append("^FO0172,0277^BY04,2,100^BUN,0100,Y,N,Y^FD074804116397^FS").append(lineEnd);
+        buf.append("^FO0064,0014^GB0642,0000,0006^FS").append(lineEnd);
+        buf.append("^FO0700,0018^GB0000,0422,0006^FS").append(lineEnd);
+        buf.append("^FO0064,0016^GB0000,0422,0006^FS").append(lineEnd);
+        buf.append("^FO0064,0436^GB0642,0000,0006^FS").append(lineEnd);
+        buf.append("^FO0072,0060^A0N,0044,0054^FD PART #PKC0MA-01^FS").append(lineEnd);
 
-        buf.append("^FO0024,0046^ABN,0011,0007^FDOld World Industries, 2x4TEST^FS").append(lineEnd);
-        buf.append("^FO0024,0074^ABN,0011,0007^FD5000 W 41ST ST (MFG PLANT)^FS").append(lineEnd);
+        buf.append("^FO0072,0100^ABN,0011,0007^FDOld World Industries, 2x4TEST^FS").append(lineEnd);
+        buf.append("^FO0072,0124^ABN,0011,0007^FD5000 W 41ST ST (MFG PLANT)^FS").append(lineEnd);
 
-        buf.append("^FO0317,0050^AFN,0026,0013^FDCustomer Location #33^FS").append(lineEnd);
-        buf.append("^FO0068,0263^A0N,0032,0040^FD(420) 61834^FS").append(lineEnd);
+        buf.append("^FO0340,0100^AFN,0026,0010^FDCustomer Location #33^FS").append(lineEnd);
+
 
         DateFormat fdfd = new SimpleDateFormat(DATE_DISPLAYPATTERN);
 //        FastDateFormat fdfd = FastDateFormat.getInstance(DATE_DISPLAYPATTERN);
         String dayTime = fdfd.format(new Date());
-        buf.append("^FO0024,0092^ABN,0011,0007^FD").append(dayTime).append("^FS").append(lineEnd);
+        buf.append("^FO0072,0142^ABN,0011,0007^FD").append(dayTime).append("^FS").append(lineEnd);
         String user = System.getProperty("user.name");
-        buf.append("^FO0024,0110^ABN,0011,0007^FD").append("User:").append(user).append("^FS").append(lineEnd);
-        buf.append("^FO0024,0150^ABN,0011,0007^FDTest Ville, IL 60804-4524^FS").append(lineEnd);
-        buf.append("^FO0317,0080^ADN,0018,0010^FD800 N LYNCH SPUR^FS").append(lineEnd);
-        buf.append("^FO0317,0156^ADN,0018,0010^FDDAnyWHere, USA 11111-9102^FS").append(lineEnd);
-        buf.append("FO0520,0217^A0N,0028,0033^FDWLEL^FS").append(lineEnd);
-        buf.append("^FO0506,0303^A0N,0028,0033^FD66666600^FS").append(lineEnd);
-        buf.append("^FO0060,0303^BY03,3,100^BCN,0140,N,N^FD>;>842061834^FS").append(lineEnd);
+        buf.append("^FO0072,0160^ABN,0011,0007^FD").append("User:").append(user).append("^FS").append(lineEnd);
+        buf.append("^FO0072,0180^ABN,0011,0007^FDTest Ville, IL 60804-4524^FS").append(lineEnd);
 
-        buf.append("^FO0128,0516^A0N,0032,0040^FD33906581^FS").append(lineEnd);
-        buf.append("^FO0024,0633^ADN,0018,0010^FDIUM: 36 CS^FS").append(lineEnd);
-        buf.append("^FO0024,0709^ADN,0018,0010^FD36 CS of Part: PRA0B3-02^FS").append(lineEnd);
-        buf.append("^FO0024,0659^ADN,0018,0010^FDSUM: 216 GAL^FS").append(lineEnd);
-        buf.append("^FO0076,0880^ADN,0036,0020^FD00 1 0074804 400000025 7^FS").append(lineEnd);
-        buf.append("^FO0058,0920^BY04,3,100^BCN,0263,N,N^FD>;>800100748044000000257^FS").append(lineEnd);
-        buf.append("^PQ0002,0000,0000,N^FS^MCN^XZ").append(lineEnd);
+        buf.append("^FO0072,0220^A0N,0032,0040^FD1 (847) 664-2000^FS").append(lineEnd);
+
+        buf.append("^ISLB,N^FS^XZ").append(lineEnd);
+        buf.append("^XA^MCY^XZ^XA^ILLB^FS").append(lineEnd);
+        buf.append("^FO0000,0000^AAN,0000,0000^FD ^FS").append(lineEnd);
+        buf.append("^PQ0001,0000,0000,N^FS^MCN^XZ").append(lineEnd);
         buf.append("<----------------------------------break1--------------------------------------->").append(lineEnd);
 
         return buf.toString().getBytes(Charset.forName(ZplFileParser.BYTE_CHAR_READER));
