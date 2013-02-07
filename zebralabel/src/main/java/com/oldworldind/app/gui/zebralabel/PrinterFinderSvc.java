@@ -2,8 +2,8 @@ package com.oldworldind.app.gui.zebralabel;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.logging.Level;
 import java.util.regex.Pattern;
+
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.PrintServiceAttribute;
@@ -44,8 +44,18 @@ public class PrinterFinderSvc {
             return false;
         }
 
-        String server = nameToMatch.substring(0, posBeforePort);
-        return IoUtils.pingServer(server, iPort);
+        return true;
+    }
+
+    public boolean isServicePingable(String serviceforsocketandPort, int timeInSeconds) {
+        if (!isNameIpStyle(serviceforsocketandPort)) {
+            return false;
+        }
+
+        int posBeforePort = serviceforsocketandPort.indexOf(':');
+        int iPort = getPort(serviceforsocketandPort);
+        String server = serviceforsocketandPort.substring(0, posBeforePort);
+        return IoUtils.pingServer(server, iPort, timeInSeconds);
     }
 
     public URL getPrinterUrl(String nameProvided) {
