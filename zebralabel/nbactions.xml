@@ -36,4 +36,11 @@
                 <exec.executable>${profiler.java}</exec.executable>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-deploy to Run</actionName>
+            <displayName>deploy to Run</displayName>
+            <goals>
+                <goal>deploy:deploy</goal>
+            </goals>
+        </action>
     </actions>

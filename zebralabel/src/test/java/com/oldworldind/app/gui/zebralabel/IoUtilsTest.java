@@ -32,7 +32,7 @@ public class IoUtilsTest {
 
 //        boolean result = IoUtils.pingServer(serverAndProtocol, printServicePort);
 
-        Boolean result = IoUtils.pingServer(TESTPRINTSERVER, printServicePort);
+        Boolean result = IoUtils.pingServer(TESTPRINTSERVER, printServicePort, 20);
         assertNotNull("must have a result from ping try on:" + serverAndProtocol, result);
         LOG.warn("port:" + printServicePort + " on ping yields:" + result + " vs:" + TESTPRINTSERVER);
     }
