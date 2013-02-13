@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet ../../../../../styles/styles.css?>
+
+<AnchorPane id="rootPane" prefHeight="450.0" prefWidth="700.0" styleClass="main-panel" xmlns:fx="http://javafx.com/fxml" fx:controller="com.oldworldind.app.gui.zebralabel.LabelPrintController">
+  <children>
+    <BorderPane layoutY="14.0" prefHeight="382.0">
+      <bottom>
+        <GridPane>
+          <children>
+            <Button fx:id="label46Btn" onAction="#doPrint46Label" styleClass="owbutton" text="4x6 Test Label" GridPane.columnIndex="3" GridPane.rowIndex="0">
+              <font>
+                <Font size="12.0" fx:id="x1" />
+              </font>
+            </Button>
+            <Button fx:id="closeBtn" font="$x1" onAction="#doClose" styleClass="owbutton" text="Close" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <Button fx:id="printLabelBtn" font="$x1" onAction="#doPrintRealLabel" styleClass="owbutton" text="Print Label File" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Button fx:id="label24Btn" font="$x1" onAction="#doPrint24Label" styleClass="owbutton" text="2x4 Test Label" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+            <Button fx:id="parseFileBtn" font="$x1" onAction="#doParseLabel" styleClass="owbutton" text="Parse Label File" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </bottom>
+      <center>
+        <GridPane>
+          <children>
+            <Label text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Button onAction="#sayHello" text="Say Hello" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="messageLabel" styleClass="hello-message" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <Label text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="lastNameField" prefColumnCount="30" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="firstNameField" prefColumnCount="30" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Label text="wtf" textAlignment="CENTER" textFill="#3385ff" underline="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </center>
+    </BorderPane>
+  </children>
+</AnchorPane>
