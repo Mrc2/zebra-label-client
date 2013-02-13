@@ -931,12 +931,9 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
     private void doPrinterLookup(MouseEvent evt) {
         PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
         DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
-        PrintService printService[] = PrintServiceLookup.lookupPrintServices(
-            flavor, pras);
-        PrintService defaultService = PrintServiceLookup
-            .lookupDefaultPrintService();
-        PrintService service = ServiceUI.printDialog(null, 200, 200,
-            printService, defaultService, flavor, pras);
+        PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
+        PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
+        PrintService service = ServiceUI.printDialog(null, 200, 200, printService, defaultService, flavor, pras);
         if (service != null) {
             LOG.info(" selected p:" + service.getName());
             jTextPrinterName.setText(service.getName());
