@@ -28,7 +28,11 @@ public final class ZplFileParser {
     private static final String END_OF_LABEL_CODE = "?XZ";
     private static String END_OF_LABEL_LINE = "?PQ";
     static {
-        if (SystemUtils.IS_OS_WINDOWS) {
+        if (SystemUtils.IS_OS_WINDOWS_XP) {
+            // xp sp3 renders the page code with this with
+            END_OF_LABEL_LINE = "?PQ";
+        }
+        else if (SystemUtils.IS_OS_WINDOWS) {
             END_OF_LABEL_LINE = "¬PQ";
         }
         LOG.info("zipfile parsing for:" + END_OF_LABEL_LINE + ": for end of label");
