@@ -7,7 +7,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath com.oldworldind.app.gui.zebralabel.RouteLabelApp</exec.args>
+                <exec.args>-classpath %classpath com.oldworldind.app.gui.zebralabel.RouteFxLabelApp</exec.args>
                 <exec.executable>java</exec.executable>
                 <exec.classpathScope>runtime</exec.classpathScope>
             </properties>
@@ -19,7 +19,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath com.oldworldind.app.gui.zebralabel.RouteLabelApp</exec.args>
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath com.oldworldind.app.gui.zebralabel.RouteFxLabelApp</exec.args>
                 <exec.executable>java</exec.executable>
                 <exec.classpathScope>runtime</exec.classpathScope>
                 <jpda.listen>true</jpda.listen>
@@ -32,7 +32,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2:exec</goal>
             </goals>
             <properties>
-                <exec.args>${profiler.args} -classpath %classpath com.oldworldind.app.gui.zebralabel.RouteLabelApp</exec.args>
+                <exec.args>${profiler.args} -classpath %classpath com.oldworldind.app.gui.zebralabel.RouteFxLabelApp</exec.args>
                 <exec.executable>${profiler.java}</exec.executable>
             </properties>
         </action>
@@ -42,5 +42,43 @@
             <goals>
                 <goal>deploy:deploy</goal>
             </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-Build Javafx RunTime</actionName>
+            <displayName>Build Javafx RunTime</displayName>
+            <goals>
+                <goal>jfx:build-jar</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-Build javafx KeyStore</actionName>
+            <displayName>Build javafx KeyStore</displayName>
+            <goals>
+                <goal>jfx:generate-key-store</goal>
+            </goals>
+            <properties>
+                <certDomain>com.oldworldind</certDomain>
+                <certCountry>US</certCountry>
+                <certState>Illinois</certState>
+                <certLocation>Chicago</certLocation>
+            </properties>
+        </action>
+        <action>
+            <actionName>CUSTOM-Build javafx WebStart</actionName>
+            <displayName>Build javafx WebStart</displayName>
+            <goals>
+                <goal>jfx:build-webstart</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-clean install skipTests</actionName>
+            <displayName>clean install skipTests</displayName>
+            <goals>
+                <goal>clean:clean</goal>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
         </action>
     </actions>

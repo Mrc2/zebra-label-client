@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <script src="http://java.com/js/dtjava.js"></script>
+<script>
+    function launchApplication(jnlpfile) {
+        dtjava.launch(            {
+                url : 'launch.jnlp'
+            },
+            {
+                javafx : '2.2+'
+            },
+            {}
+        );
+        return false;
+    }
+</script>
+
+<script>
+    function javafxEmbed() {
+        dtjava.embed(
+            {
+                url : 'launch.jnlp',
+                placeholder : 'javafx-app-placeholder',
+                width : 800,
+                height : 600
+            },
+            {
+                javafx : '2.2+'
+            },
+            {}
+        );
+    }
+    <!-- Embed FX application into web page once page is loaded -->
+    dtjava.addOnloadCallback(javafxEmbed);
+</script>
+
+</head><body>
+
+    <h1>Old World Zebra Labels Fx</h1>
+    <p>by Old World Industries LLC</p>
+
+  <b>Webstart:</b> <a href='launch.jnlp' onclick="return launchApplication('launch.jnlp');">click to launch this app as webstart</a><br><hr><br>
+
+  <!-- Applet will be inserted here -->
+  <div id='javafx-app-placeholder'></div>
+</body>
+
+</html>

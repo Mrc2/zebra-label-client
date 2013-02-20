@@ -12,33 +12,38 @@
   <children>
     <BorderPane layoutY="14.0" prefHeight="382.0">
       <bottom>
-        <GridPane>
+        <HBox alignment="CENTER" prefHeight="40.000099999997474" prefWidth="686.0">
           <children>
-            <Button fx:id="label46Btn" onAction="#doPrint46Label" styleClass="owbutton" text="4x6 Test Label" GridPane.columnIndex="3" GridPane.rowIndex="0">
+            <Button fx:id="printLabelBtn" onAction="#doPrintRealLabel" styleClass="owbutton" text="Print Label File">
               <font>
                 <Font size="12.0" fx:id="x1" />
               </font>
             </Button>
-            <Button fx:id="closeBtn" font="$x1" onAction="#doClose" styleClass="owbutton" text="Close" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-            <Button fx:id="printLabelBtn" font="$x1" onAction="#doPrintRealLabel" styleClass="owbutton" text="Print Label File" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <Button fx:id="label24Btn" font="$x1" onAction="#doPrint24Label" styleClass="owbutton" text="2x4 Test Label" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-            <Button fx:id="parseFileBtn" font="$x1" onAction="#doParseLabel" styleClass="owbutton" text="Parse Label File" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+            <Button fx:id="closeBtn" font="$x1" onAction="#doClose" styleClass="owbutton" text="Close" />
+            <Button fx:id="label46Btn" font="$x1" onAction="#doPrint46Label" styleClass="owbutton" text="4x6 Test Label" />
+            <Button fx:id="label24Btn" font="$x1" onAction="#doPrint24Label" styleClass="owbutton" text="2x4 Test Label" />
+            <Button fx:id="parseFileBtn" font="$x1" onAction="#doParseLabel" styleClass="owbutton" text="Parse Label File" />
           </children>
-          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          </columnConstraints>
-          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          </rowConstraints>
-        </GridPane>
+        </HBox>
       </bottom>
       <center>
+        <TilePane prefColumns="2" prefHeight="200.0" prefRows="2" prefWidth="200.0">
+          <children>
+            <AnchorPane fx:id="systemPanel" prefHeight="237.0" prefWidth="427.0">
+              <children>
+                <Label layoutX="45.0" layoutY="14.0" text="BarCode File" />
+                <TextField fx:id="barCodeImageFileName" layoutX="138.0" layoutY="11.0" prefWidth="200.0" />
+                <Button fx:id="openButton" layoutX="353.0" layoutY="12.0" mnemonicParsing="false" text="File" />
+                <Label fx:id="jPrinterIdentifierLabel" layoutX="37.0" layoutY="61.0" text="Label Printer" />
+                <TextField id="barCodeImageFileName" fx:id="jTextPrinterName" layoutX="130.0" layoutY="58.0" prefWidth="200.0" />
+                <Button id="openButton" fx:id="jButtonLookupPrinter" layoutX="345.0" layoutY="59.0" mnemonicParsing="false" text="Printer" />
+                <TextArea fx:id="log" layoutX="9.0" layoutY="102.0" prefHeight="142.0" prefWidth="418.0" wrapText="true" />
+              </children>
+            </AnchorPane>
+          </children>
+        </TilePane>
+      </center>
+      <top>
         <GridPane>
           <children>
             <Label text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -47,7 +52,29 @@
             <Label text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <TextField fx:id="lastNameField" prefColumnCount="30" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="firstNameField" prefColumnCount="30" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <Label text="wtf" textAlignment="CENTER" textFill="#3385ff" underline="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <Label text="wtf" textAlignment="CENTER" textFill="#3385ff" underline="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <MenuBar GridPane.columnIndex="0" GridPane.rowIndex="0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#doClose" text="Close" fx:id="closeMi" />
+                    <MenuItem mnemonicParsing="false" onAction="#doPrint46Label" text="4x6 Test Label" />
+                    <MenuItem mnemonicParsing="false" onAction="#doPrint24Label" text="2x4 Test Label" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#doShowInfoDialogBox" text="About" />
+                    <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
           </children>
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -57,10 +84,9 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           </rowConstraints>
         </GridPane>
-      </center>
+      </top>
     </BorderPane>
   </children>
 </AnchorPane>

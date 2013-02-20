@@ -1,12 +1,14 @@
 package com.oldworldind.app.gui.zebralabel;
 
 import java.util.Date;
+import java.util.Map.Entry;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -21,7 +23,26 @@ public class LabelPrintController
     @FXML private Label messageLabel;
     @FXML private Button closeBtn;
 
+    @FXML private TextArea log;
 
+
+    public void doShowInfoDialogBox() {
+        String lineRetn = "\r\n";
+        StringBuilder buf = new StringBuilder(20);
+        buf.append("Application:" + AboutInfo.getAppName() + lineRetn);
+        buf.append("By:" + AboutInfo.getSupportCompany() + lineRetn);
+        buf.append("For Help Call" + AboutInfo.getHelpphone()  + lineRetn);
+        buf.append("or mailto:" + AboutInfo.getHelpEmail()  + lineRetn);
+        buf.append("Tagged:" + AboutInfo.getTag()  + lineRetn);
+        buf.append("Version:" + AboutInfo.getVersion() + lineRetn);
+        buf.append("Recent Updates:" + lineRetn);
+        for (Entry<Integer, String> en : AboutInfo.getRevisionHistory().entrySet()) {
+            buf.append("" + en.getValue() + lineRetn);
+
+        }
+        log.appendText(buf.toString());
+    }
+    
     public void doPrintRealLabel() {
         Date d = new Date();
         messageLabel.setText("I printed a Real Label at :" + d);

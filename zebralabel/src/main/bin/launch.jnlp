@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<jnlp spec="1.0" href="launch.jnlp">
+
+    <information>
+        <title>Old World Zebra Labels Fx</title>
+        <vendor>Old World Industries LLC</vendor>
+        <icon href="icon.png"/>
+        <icon kind="splash" href="splash.jpg"/>
+        <offline-allowed/>
+    </information>
+
+    <resources>
+        <j2se version="1.7+" />
+        
+        <jfx:javafx-runtime version="2.2+" href="http://javadl.sun.com/webapps/download/GetFile/javafx-latest/windows-i586/javafx2.jnlp"/>
+        
+        <jar href="lib/activation-1.1.jar"/>
+        <jar href="lib/commons-io-2.4.jar"/>
+        <jar href="lib/commons-lang3-3.1.jar"/>
+        <jar href="lib/jcl-over-slf4j-1.6.1.jar"/>
+        <jar href="lib/log4j-1.2.17.jar"/>
+        <jar href="lib/mail-1.4.5.jar"/>
+        <jar href="lib/slf4j-api-1.6.1.jar"/>
+        <jar href="lib/slf4j-log4j12-1.6.1.jar"/>
+        <jar href="lib/swing-layout-1.0.3.jar"/>
+        <jar href="lib/zebralabel-1.0-SNAPSHOT.jar"/>
+        
+    </resources>
+
+    
+    <security>
+            
+        <all-permissions/>
+            
+    </security>
+    
+
+    <application-desc main-class="com.oldworldind.app.gui.zebralabel.RouteFxLabelApp"/>
+    <applet-desc  width="800" height="600" main-class="com.oldworldind.app.gui.zebralabel.RouteFxLabelApp"  name="RouteFxLabelApp"  >
+        <param name="requiredFXVersion" value="2.2+"/>
+    </applet-desc>
+    <jfx:javafx-desc  width="800" height="600" main-class="com.oldworldind.app.gui.zebralabel.RouteFxLabelApp"  name="RouteFxLabelApp" />
+    <update check="background"/>
+
+</jnlp>

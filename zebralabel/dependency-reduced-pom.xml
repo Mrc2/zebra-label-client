@@ -7,7 +7,7 @@
   <version>1.0-SNAPSHOT</version>
   <url>http://maven.apache.org</url>
   <organization>
-    <name>Old World Industries, LLC</name>
+    <name>Old World Industries LLC</name>
   </organization>
   <build>
     <plugins>
@@ -45,7 +45,7 @@
               <transformers>
                 <transformer />
                 <transformer>
-                  <mainClass>com.oldworldind.app.gui.zebralabel.RouteLabelApp</mainClass>
+                  <mainClass>com.oldworldind.app.gui.zebralabel.RouteFxLabelApp</mainClass>
                 </transformer>
               </transformers>
             </configuration>
