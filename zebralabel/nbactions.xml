@@ -81,4 +81,14 @@
                 <skipTests>true</skipTests>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-Build javafx WebStart off vpn</actionName>
+            <displayName>Build javafx WebStart off vpn</displayName>
+            <goals>
+                <goal>jfx:build-webstart</goal>
+            </goals>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+        </action>
     </actions>

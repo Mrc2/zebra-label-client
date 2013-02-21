@@ -1,13 +1,13 @@
 <html>
 
 <head>
-    <script src="http://java.com/js/dtjava.js"></script>
+    <script  type="text/javascript" src="http://java.com/js/dtjava.js"></script>
 <script>
     function launchApplication(jnlpfile) {
         dtjava.launch(            {
-                url : 'launch.jnlp'
+            url : jnlpfile
             },
-            {
+            { 
                 javafx : '2.2+'
             },
             {}
@@ -40,7 +40,7 @@
     <h1>Old World Zebra Labels Fx</h1>
     <p>by Old World Industries LLC</p>
 
-  <b>Webstart:</b> <a href='launch.jnlp' onclick="return launchApplication('launch.jnlp');">click to launch this app as webstart</a><br><hr><br>
+  <b>Webstart:</b> <a href='launch.jnlp' onclick="return launchApplication('launch.jnlp'); return false;">Launch via webstart</a><br><hr><br>
 
   <!-- Applet will be inserted here -->
   <div id='javafx-app-placeholder'></div>

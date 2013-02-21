@@ -33,7 +33,7 @@
               <children>
                 <Label layoutX="45.0" layoutY="14.0" text="BarCode File" />
                 <TextField fx:id="barCodeImageFileName" layoutX="138.0" layoutY="11.0" prefWidth="200.0" />
-                <Button fx:id="openButton" layoutX="353.0" layoutY="12.0" mnemonicParsing="false" text="File" />
+                <Button fx:id="openButton" layoutX="353.0" layoutY="12.0" mnemonicParsing="false" onAction="#doSelectFileToParse" text="File" />
                 <Label fx:id="jPrinterIdentifierLabel" layoutX="37.0" layoutY="61.0" text="Label Printer" />
                 <TextField id="barCodeImageFileName" fx:id="jTextPrinterName" layoutX="130.0" layoutY="58.0" prefWidth="200.0" />
                 <Button id="openButton" fx:id="jButtonLookupPrinter" layoutX="345.0" layoutY="59.0" mnemonicParsing="false" text="Printer" />
@@ -57,6 +57,7 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
+                    <MenuItem mnemonicParsing="false" onAction="#doSelectFileToParse" text="Select File" fx:id="miOpen" />
                     <MenuItem mnemonicParsing="false" onAction="#doClose" text="Close" fx:id="closeMi" />
                     <MenuItem mnemonicParsing="false" onAction="#doPrint46Label" text="4x6 Test Label" />
                     <MenuItem mnemonicParsing="false" onAction="#doPrint24Label" text="2x4 Test Label" />

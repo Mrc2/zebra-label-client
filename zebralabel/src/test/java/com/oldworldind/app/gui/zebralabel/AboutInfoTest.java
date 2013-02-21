@@ -28,7 +28,7 @@ public class AboutInfoTest {
     @Test
     public void testGetRevisionHistory() {
 
-        LOG.info("testGetAppName");
+        LOG.info("testGetRevisionHistory(");
         Map<Integer, String> res = AboutInfo.getRevisionHistory();
 
         assertNotNull("should get something for update.", res);
@@ -42,4 +42,20 @@ public class AboutInfoTest {
         }
     }
 
+    @Test
+    public void testGetRoadMap() {
+
+        LOG.info("testGetRoadMap");
+        Map<Integer, String> res = AboutInfo.getRoadMap();
+
+        assertNotNull("should get something for update.", res);
+        assertFalse("should get map with content for update.", res.isEmpty());
+        LOG.info(res);
+
+        for (Map.Entry<Integer, String> entry : res.entrySet()) {
+            Object key = entry.getKey();
+            String value = entry.getValue();
+            LOG.info("Key:" + key + " v:" + value);
+        }
+    }
 }
