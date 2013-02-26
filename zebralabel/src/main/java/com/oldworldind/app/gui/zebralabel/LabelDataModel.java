@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
 
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -34,12 +33,12 @@ class LabelDataModel extends DefaultTableModel {
     public LabelDataModel() {
 
         HashMap<String, Integer> batColProps = new HashMap<String, Integer>();
-        batColProps.put(COL_SEL, Integer.valueOf(ccount++));
+        batColProps.put(COL_PAGE_COUNT, Integer.valueOf(ccount++));
         batColProps.put(COL_FILE, Integer.valueOf(ccount++));
         batColProps.put(COL_LASTMODIFIED, Integer.valueOf(ccount++));
         batColProps.put(COL_ZPL_PATTERN, Integer.valueOf(ccount++));
         batColProps.put(COL_LINE_COUNT, Integer.valueOf(ccount++));
-        batColProps.put(COL_PAGE_COUNT, Integer.valueOf(ccount++));
+
         batColProps.put(COL_PRINTED_ON, Integer.valueOf(ccount++));
 
         LOG.info(" col count:" + ccount);
@@ -49,23 +48,18 @@ class LabelDataModel extends DefaultTableModel {
             String propName = prop.getKey();
             int element = prop.getValue();
             columnNames[element] = propName;
-            LOG.info(" colname:" + propName + " element:"+ element);
+            LOG.info(" colname:" + propName + " element:" + element);
             addColumn(propName);
         }
-//
-//        for (Iterator<String> it = batColProps.stringPropertyNames().iterator(); it.hasNext();) {
-//            String propName = it.next();
-//            addColumn(propName);
-//        }
+
     }
 
     public boolean addFileInfo(File file, String zplPattern, long entries, long labelCount, Date lastPrinted) {
         LOG.info("add info:" + file);
         FastDateFormat fmt = FastDateFormat.getInstance(DATE_DISPLAYPATTERN);
-        JRadioButton colSelect = new JRadioButton("");
         String batchDate = getFormattedDate(fmt, lastPrinted);
-        addRow(new Object[]{colSelect, file.getName(), fmt.format(file.lastModified()), zplPattern,
-                Long.toString(entries), Long.toString(labelCount), batchDate});
+        addRow(new Object[]{Long.toString(labelCount), file.getName(), fmt.format(file.lastModified()), zplPattern,
+                Long.toString(entries), batchDate});
         return true;
     }
 
