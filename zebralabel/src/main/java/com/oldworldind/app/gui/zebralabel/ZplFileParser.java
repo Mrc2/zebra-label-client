@@ -34,6 +34,8 @@ public final class ZplFileParser {
         }
         else if (SystemUtils.IS_OS_WINDOWS) {
             END_OF_LABEL_LINE = "¬PQ";
+        } else if (SystemUtils.IS_OS_MAC_OSX) {
+            END_OF_LABEL_LINE = "¬PQ";
         }
         LOG.info("zipfile parsing for:" + END_OF_LABEL_LINE + ": for end of label");
     }
