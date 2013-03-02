@@ -4,6 +4,13 @@ import java.io.File;
 import java.util.Date;
 import java.util.Map.Entry;
 
+import javax.print.DocFlavor;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.ServiceUI;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -32,7 +39,9 @@ public class LabelPrintController {
     @FXML
     private MenuItem miOpen;
     @FXML
-    private TextField barCodeImageFileName;
+    private TextField fxBarCodeImageFileName;
+    @FXML
+    private TextField fxTextPrinterName;
 
     public void doShowInfoDialogBox() {
         String lineRetn = "\r\n";
@@ -98,7 +107,7 @@ public class LabelPrintController {
         File chosen = fChooser.showOpenDialog(miOpen.getParentPopup());
         if (chosen != null) {
             doPutInLog("chose" + chosen.getAbsolutePath());
-            barCodeImageFileName.setText(chosen.getAbsolutePath());
+            fxBarCodeImageFileName.setText(chosen.getAbsolutePath());
             return;
         }
         doPutInLog("chose no file for label");
@@ -121,6 +130,22 @@ public class LabelPrintController {
     public void doParseLabel() {
         Date d = new Date();
         messageLabel.setText("Parsed Label at :" + d);
+    }
+
+    public void doPrinterLookup() {
+        doPutInLog("starting Printer lookup");
+        PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
+        DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+        PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
+        PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
+          doPutInLog("captured default service:" + defaultService);
+        PrintService service = ServiceUI.printDialog(null, 200, 200, printService, defaultService, flavor, pras);
+        if (service != null) {
+            LOG.info(" selected p:" + service.getName());
+            fxTextPrinterName.setText(service.getName());
+            return;
+        }
+        LOG.info("no printer selected");
     }
 
     public void sayHello() {

@@ -32,11 +32,11 @@
             <AnchorPane fx:id="systemPanel" prefHeight="237.0" prefWidth="427.0">
               <children>
                 <Label layoutX="45.0" layoutY="14.0" text="BarCode File" />
-                <TextField fx:id="barCodeImageFileName" layoutX="138.0" layoutY="11.0" prefWidth="200.0" />
+                <TextField id="barCodeImageFileName" fx:id="fxBarCodeImageFileName" layoutX="138.0" layoutY="11.0" prefWidth="200.0" />
                 <Button fx:id="openButton" layoutX="353.0" layoutY="12.0" mnemonicParsing="false" onAction="#doSelectFileToParse" text="File" />
                 <Label fx:id="jPrinterIdentifierLabel" layoutX="37.0" layoutY="61.0" text="Label Printer" />
-                <TextField id="barCodeImageFileName" fx:id="jTextPrinterName" layoutX="130.0" layoutY="58.0" prefWidth="200.0" />
-                <Button id="openButton" fx:id="jButtonLookupPrinter" layoutX="345.0" layoutY="59.0" mnemonicParsing="false" text="Printer" />
+                <TextField id="barCodeImageFileName" fx:id="fxTextPrinterName" layoutX="130.0" layoutY="58.0" prefWidth="200.0" />
+                <Button id="openButton" fx:id="jButtonLookupPrinter" layoutX="345.0" layoutY="59.0" mnemonicParsing="false" onAction="#doPrinterLookup" text="Printer" />
                 <TextArea fx:id="log" layoutX="9.0" layoutY="102.0" prefHeight="142.0" prefWidth="418.0" wrapText="true" />
               </children>
             </AnchorPane>
