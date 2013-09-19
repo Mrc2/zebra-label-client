@@ -240,7 +240,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 100, Short.MAX_VALUE));
 
-        setBackground(new java.awt.Color(153, 255, 153));
+        setBackground(new java.awt.Color(174, 208, 234));
         setMaximumSize(new java.awt.Dimension(1200, 1024));
         setPreferredSize(formDimensions);
 
@@ -1216,9 +1216,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
     protected byte[] get2x4CustomLabelBytes() {
         String lineEnd = OTHER_LINE_END;
         StringBuilder buf = new StringBuilder(123);
-        buf.append(
-            "<-------------2x4 TEST Label---------------Click file, print, select Zebra printer, press print--------------------------------------->").append(
-            lineEnd);
+        buf.append("<-------------2x4 TEST Label---------------Click file, print, select Zebra printer, press print--------------------------------------->").append(lineEnd);
 
         buf.append("~CC^").append(lineEnd);
         buf.append("^XA^JMA^FS^XZ").append(lineEnd);
