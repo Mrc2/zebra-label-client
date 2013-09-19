@@ -24,7 +24,7 @@ public class IoUtilsTest {
     /**
      * Test of pingServer method, of class IoUtils.
      */
-    @Test(timeout = 3000L)
+    @Test(timeout = 60001L)
     public void testPingServer() {
         LOG.info("pingServer");
         String serverAndProtocol = "192.168.1.73";
