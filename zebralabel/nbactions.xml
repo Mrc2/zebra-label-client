@@ -43,4 +43,17 @@
                 <goal>deploy:deploy</goal>
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-clean install notest</actionName>
+            <displayName>clean install notest</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install:install</goal>
+                <goal>compiler:compile</goal>
+                <goal>compiler:testCompile</goal>
+            </goals>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+        </action>
     </actions>
