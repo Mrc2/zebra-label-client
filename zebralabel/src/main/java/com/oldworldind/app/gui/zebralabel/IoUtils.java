@@ -147,7 +147,7 @@ public final class IoUtils {
         return false;
     }
 
-    private static boolean cleanupSocket(Socket is) {
+    public static boolean cleanupSocket(Socket is) {
         if (is == null) {
             LOG.info("no Socket to close");
             return false;
@@ -177,11 +177,13 @@ public final class IoUtils {
         try {
             fis = new FileInputStream(file);
             boolean result = pipeToHost(fis, targetHostnameOrIP, portNumber);
-            LOG.info("file content result:" + result + " when piped to host:port <" + targetHostnameOrIP + ":" + portNumber + "> from file:" + inputFileName);
+            LOG.info(
+                "file content result:" + result + " when piped to host:port <" + targetHostnameOrIP + ":" + portNumber + "> from file:" + inputFileName);
             return result;
 
         } catch (IOException e) {
-            LOG.error("cannot pipe to host:port <" + targetHostnameOrIP + ":" + portNumber + "> from file:" + inputFileName, e);
+            LOG.error(
+                "cannot pipe to host:port <" + targetHostnameOrIP + ":" + portNumber + "> from file:" + inputFileName, e);
         } finally {
             cleanUpInputStream(fis);
         }
