@@ -54,7 +54,7 @@
             <actionName>CUSTOM-Build javafx KeyStore</actionName>
             <displayName>Build javafx KeyStore</displayName>
             <goals>
-                <goal>jfx:generate-key-store</goal>
+                <goal>generate-key-store</goal>
             </goals>
             <properties>
                 <certDomain>com.oldworldind</certDomain>
