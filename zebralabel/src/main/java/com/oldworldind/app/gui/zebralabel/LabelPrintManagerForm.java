@@ -14,7 +14,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-
 import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
@@ -566,11 +565,10 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             int rc = this.fileInputJTable.getModel().getRowCount();
             boolean canAddModViewCell = fileInputJTable.isCellEditable(rc, 0);
 
-            for (int fi = 0; fi < files.length; fi++) {
-                File file = files[fi];
+            for (File file : files) {
                 //This is where a real application would open the file.
                 log.append("Opening: " + file.getName() + " path" + file.getAbsolutePath() + " updated:" + fdfd.format(file.lastModified())
-                    + " add row after:" + rc + " can Add^" + canAddModViewCell + "." + OTHER_LINE_END);
+                        + " add row after:" + rc + " can Add^" + canAddModViewCell + "." + OTHER_LINE_END);
 
                 if (canAddModViewCell) {
                     populateImageFileTable(file, fdfd);

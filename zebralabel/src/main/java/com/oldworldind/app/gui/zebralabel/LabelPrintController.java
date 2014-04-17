@@ -3,16 +3,10 @@ package com.oldworldind.app.gui.zebralabel;
 import java.io.File;
 import java.util.Date;
 import java.util.Map.Entry;
-
-import javax.print.DocFlavor;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.ServiceUI;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,6 +14,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javax.print.DocFlavor;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.ServiceUI;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -125,6 +126,34 @@ public class LabelPrintController {
         LOG.warn("2x4 printed");
         Date d = new Date();
         messageLabel.setText("2x4 demo Label at :" + d);
+        String printerToUse = fxTextPrinterName.getText();
+        Printer printer = null;
+        doPutInLog("selected name printer:" + printerToUse);
+        for (Printer ptr : Printer.getAllPrinters()) {
+            if (printerToUse.equals(ptr.getName())) {
+                LOG.info("found match on:" + ptr);
+                printer = ptr;
+            }
+        }
+
+        if (printer == null) {
+            LOG.info("matching ptr n/a");
+            return;
+        }
+
+        LOG.info("did it 2 nodeValue:" + log + " printer:" + printer);
+        PrinterJob job = PrinterJob.createPrinterJob(printer);
+        LOG.info("did it obsValue:" + job);
+
+        if (job != null) {
+
+            boolean success = job.printPage(log);
+
+            if (success) {
+                job.endJob();
+            }
+
+        }
     }
 
     public void doParseLabel() {
@@ -133,7 +162,7 @@ public class LabelPrintController {
     }
 
     public void doPrinterLookup() {
-        doPutInLog("starting Printer lookup");
+        doPutInLog("starting Controller Printer lookup");
         PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
         DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
         PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
@@ -143,6 +172,7 @@ public class LabelPrintController {
         if (service != null) {
             LOG.info(" selected p:" + service.getName());
             fxTextPrinterName.setText(service.getName());
+            doPutInLog("selected service:" + service);
             return;
         }
         LOG.info("no printer selected");
