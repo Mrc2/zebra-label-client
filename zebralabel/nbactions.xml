@@ -48,9 +48,9 @@
             <displayName>clean install notest</displayName>
             <goals>
                 <goal>clean</goal>
-                <goal>install:install</goal>
-                <goal>compiler:compile</goal>
-                <goal>compiler:testCompile</goal>
+                <goal>install</goal>
+                <goal>compile</goal>
+                <goal>test-compile</goal>
             </goals>
             <properties>
                 <skipTests>true</skipTests>
