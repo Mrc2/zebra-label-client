@@ -34,7 +34,7 @@
             <plugin>
                 <groupId>com.zenjava</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>8.1.2</version>
+                <version>8.8.3</version>
                 <configuration>
 
                     <mainClass>com.oldworldind.app.gui.zebralabel.RouteFxLabelApp</mainClass>
@@ -119,7 +119,6 @@
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
-
 
         <dependency>
             <groupId>commons-io</groupId>
