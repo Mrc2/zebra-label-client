@@ -9,21 +9,37 @@
 
     <name>Old World Zebra Labels</name>
     <url>http://maven.apache.org</url>
+    
+     <distributionManagement>
+         <repository>
+             <id>localrt</id>
+             <name>Local RunTime</name>
+             <url>file:///${user.home}/javaruntimes/${project.artifactId}/</url>
+         </repository>
+        <site>
+            <id>localrt</id>
+            <name>Local RunTime</name>
+            <url>file:///${user.home}/sites/${project.artifactId}/</url>
+        </site>
+     </distributionManagement>
+      
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.7.0</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.2</version>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -46,7 +62,7 @@
             <plugin>
                 <groupId>com.ning.maven.plugins</groupId>
                 <artifactId>maven-duplicate-finder-plugin</artifactId>
-                <version>1.0.6</version>
+                <version>1.0.9</version>
                 <executions>
                     <execution>
                         <phase>verify</phase>
@@ -58,46 +74,170 @@
             </plugin>
         </plugins>
     </build>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    
+ <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.6</version>
+                <configuration>
+                    <skipDeploy>true</skipDeploy>
+<!--                    <reportPlugins>
+                        
+                </reportPlugins>-->
+            </configuration>
+        </plugin>
 
-    <dependencies>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-project-info-reports-plugin</artifactId>
+            <version>2.9</version>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jxr-plugin</artifactId>
+            <version>2.5</version>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-pmd-plugin</artifactId>
+            <version>3.8</version>
+            <configuration>
+                <includeTests>true</includeTests>
+                <linkXref>true</linkXref>
+                <sourceEncoding>utf-8</sourceEncoding>
+                <minimumTokens>150</minimumTokens>
+                <!-- 3.1 does not support 1.8 -->
+                <!--<targetJdk>${java.target}</targetJdk>-->
+                <excludes>
+                    <exclude>**/generated/*.java</exclude>
+                </excludes>
+                <excludeRoots>
+                    <excludeRoot>target/generated-sources/stubs</excludeRoot>
+                </excludeRoots>
+                <!--                    <rulesets>
+                    <ruleset>${pmd.ruleset}</ruleset>
+                </rulesets>-->
+            </configuration>
+        </plugin>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>findbugs-maven-plugin</artifactId>
+            <version>3.0.5</version>
+            <configuration>
+                <!--                    <excludeFilterFile>${findbugs.exclude}</excludeFilterFile>-->
+                <xmlOutput>true</xmlOutput>
+                <xmlOutputDirectory>target/site</xmlOutputDirectory>
+            </configuration>
+        </plugin>
+        <!--             <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-changes-plugin</artifactId>
+           <version>2.12.1</version> 
+           <reportSets>
+               <reportSet>
+                   <reports>
+                       <report>jira-report</report>
+                   </reports>
+               </reportSet>
+           </reportSets>
+        </plugin>-->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-project-info-reports-plugin</artifactId>
+            <version>2.9</version>
+            <configuration>
+                <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+            </configuration>
+            <reportSets>
+                <reportSet>
+                    <reports><!-- select reports -->
+                        <report>index</report>
+                    </reports>
+                </reportSet>
+            </reportSets>
+        </plugin>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>findbugs-maven-plugin</artifactId>
+            <version>3.0.5</version>
+            <configuration>
+                <!--                    <excludeFilterFile>${findbugs.exclude}</excludeFilterFile>-->
+                <xmlOutput>true</xmlOutput>
+                <xmlOutputDirectory>target/site</xmlOutputDirectory>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-pmd-plugin</artifactId>
+            <version>3.9.0</version>
+            <configuration>
+                <includeTests>true</includeTests>
+                <linkXref>true</linkXref>
+                <sourceEncoding>utf-8</sourceEncoding>
+                <minimumTokens>150</minimumTokens>
+                <!-- 3.1 does not support 1.8 -->
+                <!--<targetJdk>${java.target}</targetJdk>-->
+                <excludes>
+                    <exclude>**/generated/*.java</exclude>
+                </excludes>
+                <excludeRoots>
+                    <excludeRoot>target/generated-sources/stubs</excludeRoot>
+                </excludeRoots>
+                <!--                    <rulesets>
+                    <ruleset>${pmd.ruleset}</ruleset>
+                </rulesets>-->
+            </configuration>
+        </plugin>
+    </plugins>
+</reporting>
+    
+<dependencies>
 
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>2.11.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.11.0</version>
+    </dependency>
+    <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.6</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.4</version>
+        <type>jar</type>
+    </dependency>
 
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.2.1</version>
-            <type>jar</type>
-        </dependency>
-
-        <dependency>
-            <groupId>org.swinglabs</groupId>
-            <artifactId>swing-layout</artifactId>
-            <version>1.0.3</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
-        </dependency>
-    </dependencies>
+    <dependency>
+        <groupId>org.swinglabs</groupId>
+        <artifactId>swing-layout</artifactId>
+        <version>1.0.3</version>
+    </dependency>
+    <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>mail</artifactId>
+        <version>1.4.7</version>
+    </dependency>
+</dependencies>
 </project>

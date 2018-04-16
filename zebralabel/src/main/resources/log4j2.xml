@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" strict="true" name="XMLConfigTest"
+               packages="org.apache.logging.log4j.test"> 
+    <Filter type="ThresholdFilter" level="trace"/>
+    <Appenders> 
+        <RollingFile name="RollingFile" fileName="owizebralabels.stdout.log"
+                     filePattern="logs/owizebralabels.stdout%d{yyyy-MM-dd-HH}-%i.log.gz">
+            <PatternLayout class="org.apache.log4j.PatternLayout">
+                <pattern>%highlight{%d{HH:mm:ss,SSS} [%t] [%X{user.name}] %-5p - %c{6} %m:}%n" </pattern>
+            </PatternLayout>
+            <Filters>
+                <filter class="org.apache.log4j.varia.LevelRangeFilter">
+                    <param name="LevelMin" value="INFO"/>
+                    <param name="LevelMax" value="FATAL"/>
+                </filter>
+            </Filters>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="12" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+        </RollingFile> 
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout class="org.apache.log4j.PatternLayout">
+                <pattern>%d{MM-dd HH:mm:ss,SSS} %X{user.name}  %-5p %c{1}:%l %m%n#" </pattern>
+            </PatternLayout>
+            <Filters>
+                <filter class="org.apache.log4j.varia.LevelRangeFilter">
+                    <param name="LevelMin" value="INFO"/>
+                    <param name="LevelMax" value="FATAL"/>
+                </filter>
+            </Filters>
+        </Console>
+
+        <Appender name="EMAIL" class="org.apache.log4j.net.SMTPAppender">
+            <param name="SMTPHost" value="owdom03.oldworldind.com" />
+            <param name="Subject" value="OWI Zebra Labels [${os.name}] [${java.runtime.version}] [%X{user.name}]  Log4j Application message" />
+            <param name="From" value="support@oldworldind.com" />
+            <param name="To" value="webteam@oldworldind.com" />
+
+            <PatternLayout class="org.apache.log4j.PatternLayout">
+                <pattern>%d{MM-dd HH:mm:ss,SSS} [%t] %-5p %c{1}: %m%n" </pattern>
+            </PatternLayout>
+            <filter class="org.apache.log4j.varia.LevelRangeFilter">
+                <param name="LevelMin" value="ERROR"/>
+                <param name="LevelMax" value="FATAL"/>
+            </filter>
+        </Appender>
+    </Appenders>
+    
+    <Loggers>
+        <Logger name="com.oldworldind" level="trace" >
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <Root level="info"> 
+            <Appender-ref ref="RollingFile" />
+            <Appender-ref ref="Console" />
+            <!--<Appender-ref ref="EMAIL" />-->
+        </Root> 
+    </Loggers>
+</Configuration>

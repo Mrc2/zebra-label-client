@@ -2,28 +2,41 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <properties>
-    <title> Project Changes</title>
+    <title> Zebra Label Content Project Changes</title>
     <author email="mcolegrove@oldworldind.com">Mike Colegrove</author>
   </properties>
   <body>
 
-    <release version="1.0" date="2013-01-11.16.03.0001" description="init load">
-      <action dev="mcolegrove" type="update">
-       Last is on top.!!!!!   {----}
-      </action>
-    </release>
-
-    <release version="1.0" date="2013-01-11" description="init load">
-      <action dev="mcolegrove" type="update">
-       Last is on top.!!!!!   {----}
-      </action>
-    </release>
-
-    <release version="1.0" date="2013-01-10" description="First release">
-      <action dev="mcolegrove" type="update">
-        Uploaded documentation on how to use the plugin.
-      </action>
-    </release>
-
+      <release version="1.0" date="2018-04-15.12.55.0001" description="adopt reporting model for notification">
+          
+          <action dev="mcolegrove" date="2018-04-15.12.55.0001"  type="update" issue="2018-04-15.12.55.0001" >
+             changes plugin
+          </action>
+          
+          <action dev="mcolegrove" date="2018-03-18"  type="update" issue="2018-03-18" >
+              log4j2
+          </action>
+          
+          <action dev="mcolegrove" date="2018-03-17"  type="update" issue="2018-03-17" >
+              jdk8 
+          </action>
+          
+          <action dev="mcolegrove" date="2018-03-12"  type="update" issue="2018-03-12" >
+              Enable using updated plugins
+          </action>
+          
+          <action dev="mcolegrove" date="2013-01-11.16.03.0001"  type="update" issue="2013-01-11.16.03.0001" >
+              Last is on top.!!!!!   {----}
+          </action>
+          
+           <action dev="mcolegrove" date="2013-01-11"  type="update" issue="2013-01-11.16.03.0001" >
+              Last is on top.!!!!!   {----} 2
+          </action> 
+           <action dev="mcolegrove" date="2013-01-11"  type="update" issue="2013-01-11" >
+              Uploaded documentation on how to use the plugin.
+          </action>
+           
+      </release>
+ 
   </body>
 </document>

@@ -3,14 +3,15 @@ package com.oldworldind.app.gui.zebralabel;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @since Dec 15, 2012 at 1:26:44 AM
  * @author mcolegrove
  */
 public class RouteLabelApp {
-    private static final Logger LOG = Logger.getLogger(RouteLabelApp.class);
+    private static final Logger LOG = LogManager.getLogger(RouteLabelApp.class);
 
     /**
      * @param args the command line arguments

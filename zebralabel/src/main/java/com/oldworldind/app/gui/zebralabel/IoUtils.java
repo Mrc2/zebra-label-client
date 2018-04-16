@@ -10,7 +10,8 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.Socket;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -18,7 +19,7 @@ import org.apache.log4j.Logger;
  * @author mcolegrove
  */
 public final class IoUtils {
-    private static final Logger LOG = Logger.getLogger(IoUtils.class);
+    private static final Logger LOG = LogManager.getLogger(IoUtils.class);
 
     public static boolean cleanUpOutputStream(OutputStream os) {
 
@@ -134,8 +135,8 @@ public final class IoUtils {
 
             InetAddress addr = sock.getInetAddress();
 
-            boolean reachableInTime =  addr.isReachable(timeToTryReach);
-            LOG.info("connected to:" + addr  + " resp:" + reachableInTime + " in seconds:" + timeToTryReach);
+            boolean reachableInTime = addr.isReachable(timeToTryReach);
+            LOG.info("connected to:" + addr + " resp:" + reachableInTime + " in seconds:" + timeToTryReach);
             return reachableInTime;
         } catch (final MalformedURLException e1) {
             LOG.error("Bad URL, Cannot connect to:" + serverAndProtocol + " port:" + port, e1);
@@ -201,4 +202,5 @@ public final class IoUtils {
         }
         return bytesPiped;
     }
+
 }

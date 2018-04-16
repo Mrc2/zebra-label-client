@@ -5,14 +5,14 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.logging.log4j.Level;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.apache.logging.log4j.LogManager;
 
 /**
  *
@@ -51,10 +51,10 @@ public class LabelPrintManagerFormTest {
 
         try {
             FileUtils.writeByteArrayToFile(sample4x6, demo46);
-            Logger.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.WARNING,
+            LogManager.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.WARN,
                 "Temp File written:" + sample4x6);
         } catch (IOException ex) {
-            Logger.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.SEVERE, null, ex);
+            LogManager.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.FATAL, "Failed 4x6 bytes:", ex);
             doCleanup = false;
         }
 
@@ -64,10 +64,10 @@ public class LabelPrintManagerFormTest {
         try {
             String labelContent = new String(demo24);
             FileUtils.writeStringToFile(sample2x4, labelContent);
-            Logger.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.WARNING,
+            LogManager.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.WARN,
                 "Temp File written:" + sample2x4);
         } catch (Exception ex) {
-            Logger.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.SEVERE, null, ex);
+            LogManager.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.FATAL, "Failed 2x4 bytes:", ex);
             doCleanup = false;
             fail("did not set sample to file:" + sample2x4);
         }
@@ -77,10 +77,10 @@ public class LabelPrintManagerFormTest {
 
         try {
             FileUtils.writeByteArrayToFile(calilabel, democali);
-            Logger.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.WARNING,
+            LogManager.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.WARN,
                 "Temp File written:" + calilabel);
         } catch (IOException ex) {
-            Logger.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.SEVERE, null, ex);
+            LogManager.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.FATAL, "Failed Calibration bytes", ex);
             doCleanup = false;
         }
 
@@ -105,10 +105,10 @@ public class LabelPrintManagerFormTest {
     private void doHoldLabelSpace(File fileToHold) {
         try {
             FileUtils.touch(fileToHold);
-            Logger.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.WARNING,
+            LogManager.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.WARN,
                 "Temp File created:" + fileToHold.getAbsolutePath());
         } catch (IOException ex) {
-            Logger.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.SEVERE, null, ex);
+            LogManager.getLogger(LabelPrintManagerFormTest.class.getName()).log(Level.FATAL, "Failed hold label file:" + fileToHold, ex);
         }
     }
 }
