@@ -7,7 +7,15 @@
   </properties>
   <body>
 
-      <release version="1.0" date="2018-04-15.12.55.0001" description="adopt reporting model for notification">
+      <release version="1.0" date="2018-04-17." description="adopt reporting model for notification">
+
+            <action dev="mcolegrove" date="2018-04-17"  type="add" issue="2018-04-17" >
+            make use of labelary.com to render zebra labels into images via webservice call
+          </action>
+                     
+          <action dev="mcolegrove" date="2018-04-16"  type="add" issue="2018-04-16" >
+             Strip non-standard carriage control from zebra 
+          </action>
           
           <action dev="mcolegrove" date="2018-04-15.12.55.0001"  type="update" issue="2018-04-15.12.55.0001" >
              changes plugin
