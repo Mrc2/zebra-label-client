@@ -9,21 +9,54 @@
 
     <name>Old World Zebra Labels</name>
     <url>http://maven.apache.org</url>
+       
+    <distributionManagement>
+        <repository>
+            <id>localrt</id>
+            <name>Local RunTime</name>
+            <url>file:///${user.home}/javaruntimes/${project.artifactId}/</url>
+        </repository>
+        <site>
+            <id>localrt</id>
+            <name>Local RunTime</name>
+            <url>file:///${user.home}/sites/${project.artifactId}/</url>
+        </site>
+    </distributionManagement>
+        
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>      
     <build>
+        <!-- toggle this to name final deployment name only as zebralabel-1.0-SNAPSHOT.jar
+             instead of zebralabel-1.0-yyyyMMdd.HHmmssSS
+        -->
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.8.2</version>
+                <configuration>
+                    <skipDeploy>true</skipDeploy>
+                    <!--                    <reportPlugins>
+                        
+                    </reportPlugins>-->
+                </configuration>
+            </plugin>	
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>3.8.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -32,8 +65,8 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer
-                                    implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                                <!--                                <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />-->
                                 <transformer
                                     implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>com.oldworldind.app.gui.zebralabel.RouteLabelApp</mainClass>
@@ -58,10 +91,96 @@
             </plugin>
         </plugins>
     </build>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+          
+    <reporting>
+        <plugins>
+           
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.12.0</version>
+                <configuration>
+                    <includeTests>true</includeTests>
+                    <linkXref>true</linkXref>
+                    <sourceEncoding>utf-8</sourceEncoding>
+                    <minimumTokens>150</minimumTokens>
+                    <!-- 3.1 does not support 1.8 -->
+                    <!--<targetJdk>${java.target}</targetJdk>-->
+                    <excludes>
+                        <exclude>**/generated/*.java</exclude>
+                    </excludes>
+                    <excludeRoots>
+                        <excludeRoot>target/generated-sources/stubs</excludeRoot>
+                    </excludeRoots>
+                    <!--                    <rulesets>
+                        <ruleset>${pmd.ruleset}</ruleset>
+                    </rulesets>-->
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.5</version>
+                <configuration>
+                    <!--                    <excludeFilterFile>${findbugs.exclude}</excludeFilterFile>-->
+                    <xmlOutput>true</xmlOutput>
+                    <xmlOutputDirectory>target/site</xmlOutputDirectory>
+                </configuration>
+            </plugin>
+            <!--             <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-changes-plugin</artifactId>
+               <version>2.12.1</version> 
+               <reportSets>
+                   <reportSet>
+                       <reports>
+                           <report>jira-report</report>
+                       </reports>
+                   </reportSet>
+               </reportSets>
+            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports><!-- select reports -->
+                            <report>index</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.5</version>
+                <configuration>
+                    <!--                    <excludeFilterFile>${findbugs.exclude}</excludeFilterFile>-->
+                    <xmlOutput>true</xmlOutput>
+                    <xmlOutputDirectory>target/site</xmlOutputDirectory>
+                </configuration>
+            </plugin>
+           
+        </plugins>
+    </reporting>
+    
     <dependencies>
 
         <dependency>
@@ -71,11 +190,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.11.2</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.11.2</version>
+        </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -84,7 +207,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
+            <version>3.9</version>
             <type>jar</type>
         </dependency>
 
@@ -96,7 +219,19 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>1.4.7</version>
+            <version>1.5.0-b01</version>
+        </dependency>
+       
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>2.29.1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>2.29.1</version>
         </dependency>
     </dependencies>
 </project>

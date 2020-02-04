@@ -12,7 +12,8 @@ import javax.print.attribute.standard.PrinterName;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -20,7 +21,7 @@ import org.apache.log4j.Logger;
  * @author mcolegrove
  */
 public class PrinterFinderSvc {
-    private static final Logger LOG = Logger.getLogger(PrinterFinderSvc.class);
+    private static final Logger LOG = LogManager.getLogger(PrinterFinderSvc.class);
 
     public String getFirstLabelPrinterName() {
         return getFirstLabelPrinterName("Zebra");
@@ -101,16 +102,16 @@ public class PrinterFinderSvc {
     String getFirstLabelPrinterName(String nameToMatch) {
 
         PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
-        for (int i = 0; i < services.length; i++) {
-            PrintServiceAttribute attr = services[i].getAttribute(PrinterName.class);
-            PrinterMakeAndModel mam = services[i].getAttribute(PrinterMakeAndModel.class);
-            String sPrinterName = ((PrinterName) attr).getValue();
-            LOG.info("Found printer: " + sPrinterName + "\n");
-            LOG.info("printer type: " + mam + "\n");
-            if (sPrinterName.indexOf(nameToMatch) > -1) {
-                return sPrinterName;
-            }
-        }
+		for (PrintService service : services) {
+			PrintServiceAttribute attr = service.getAttribute(PrinterName.class);
+			PrinterMakeAndModel mam = service.getAttribute(PrinterMakeAndModel.class);
+			String sPrinterName = ((PrinterName) attr).getValue();
+			LOG.info("Found printer: " + sPrinterName + "\n");
+			LOG.info("printer type: " + mam + "\n");
+			if (sPrinterName.contains(nameToMatch)) {
+				return sPrinterName;
+			}
+		}
         LOG.info("Finshed\n");
 
         return null;
@@ -118,13 +119,13 @@ public class PrinterFinderSvc {
 
     PrintService getFirstLabelPrinterServiceNamed(String fullName) {
         PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
-        for (int i = 0; i < services.length; i++) {
-            PrintServiceAttribute attr = services[i].getAttribute(PrinterName.class);
-            String sPrinterName = ((PrinterName) attr).getValue();
-            if (sPrinterName.indexOf(fullName) >= 0) {
-                return services[i];
-            }
-        }
+		for (PrintService service : services) {
+			PrintServiceAttribute attr = service.getAttribute(PrinterName.class);
+			String sPrinterName = ((PrinterName) attr).getValue();
+			if (sPrinterName.contains(fullName)) {
+				return service;
+			}
+		}
         return null;
     }
 }

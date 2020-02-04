@@ -1,5 +1,7 @@
 package com.oldworldind.app.gui.zebralabel;
 
+import static java.nio.charset.Charset.defaultCharset;
+
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
@@ -7,7 +9,6 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
@@ -35,7 +36,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -44,7 +46,7 @@ import org.apache.log4j.Logger;
  */
 public class LabelPrintManagerForm extends javax.swing.JPanel {
     private static final long serialVersionUID = 3366893204177851100L;
-    private static final Logger LOG = Logger.getLogger(LabelPrintManagerForm.class);
+    private static final Logger LOG = LogManager.getLogger(LabelPrintManagerForm.class);
     public static final String FILETYPE_XREF = "Xref";
     public static final String FILETYPE_ZPL = "txt/wri";
     private static final String DATE_DISPLAYPATTERN = "MM/dd/yy @HH:mm:ss:SSSSS";
@@ -143,7 +145,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         //#FYI  Pre Creation Code of the JPanel
-        String zplpath = getDefaultZplPath(pathToZipFilesDefault);
+//        String zplpath = getDefaultZplPath(pathToZipFilesDefault);
         systemPanel = new javax.swing.JPanel();
         jPrinterIdentifierLabel = new javax.swing.JLabel();
         //#FYI  Enables starting lookup point from path in field list
@@ -399,7 +401,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             .add(18, 18, 18)
             .add(jTabbedPaneLabelSource)));
 
-        final Integer[] columnWidth = (Integer[]) Array.newInstance(Integer.class, dm.getColumnCount());
+//        final Integer[] columnWidth = (Integer[]) Array.newInstance(Integer.class, dm.getColumnCount());
         fileInputJTable.setModel(dm);
         fileInputJTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         fileInputJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -1444,8 +1446,9 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         log.append("PrinterLabel File Button clicked!" + OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
 
+        Charset local = defaultCharset();
 
-        byte[] labelBytes = jBarByteTextArea.getText().getBytes();
+        byte[] labelBytes = jBarByteTextArea.getText().getBytes(local);
 
         PrinterFinderSvc svc = new PrinterFinderSvc();
 

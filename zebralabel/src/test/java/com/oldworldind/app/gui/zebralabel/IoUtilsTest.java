@@ -7,7 +7,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 /**
@@ -16,7 +18,8 @@ import org.junit.Test;
  * @author mcolegrove
  */
 public class IoUtilsTest {
-    private static final Logger LOG = Logger.getLogger(IoUtilsTest.class);
+
+    private static final Logger LOG = LogManager.getLogger(IoUtilsTest.class);
 //    private static final String TESTPRINTSERVER = "172.16.2.32";
 //    private boolean setupreached;
 
@@ -56,7 +59,6 @@ public class IoUtilsTest {
 //        sw.stop();
 //        LOG.info("on setup reached:" + setupreached + " time:" + sw.toSplitString());
 //    }
-
     /**
      * Test of pipe method, of class IoUtils.
      */
@@ -104,4 +106,5 @@ public class IoUtilsTest {
             IoUtils.cleanUpInputStream(in);
         }
     }
+
 }

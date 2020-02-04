@@ -9,7 +9,8 @@ import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 import org.apache.commons.lang3.time.FastDateFormat;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -17,7 +18,7 @@ import org.apache.log4j.Logger;
  * @author mcolegrove 
  */
 class LabelDataModel extends DefaultTableModel {
-    private static final Logger LOG = Logger.getLogger(LabelDataModel.class);
+    private static final Logger LOG = LogManager.getLogger(LabelDataModel.class);
     private static final long serialVersionUID = 4183629661904518943L;
     public static final String COL_SEL = "Sel";
     public static final String COL_FILE = "File";
