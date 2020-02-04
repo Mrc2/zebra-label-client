@@ -24,7 +24,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
-import org.junit.Ignore;
 import org.junit.Test;
 
 // #FIXME MCC 20-12-31 Enable such that LogFactory does not fail 
@@ -87,11 +86,10 @@ public class LabelAryClientTest {
         assertNotNull("sb ok", file);
 
         LOG.info("ckf:" + file.getAbsolutePath());
-        doCleanup(3, file, false);
+        doCleanup(3, file, true);
     }
 
     @Test
-    @Ignore
     public void testService() throws IOException {
         String targFile = "label.pdf";
         Client client = ClientBuilder.newBuilder().register(MultiPartFeature.class).build();
@@ -107,7 +105,7 @@ public class LabelAryClientTest {
             byte[] body = response.readEntity(byte[].class);
             File file = new File(targFile); // change file name for PNG images
             Files.write(file.toPath(), body);
-            doCleanup(10, file, true);
+            doCleanup(5, file, true);
         } else {
             String body = response.readEntity(String.class);
             LOG.error(body);
