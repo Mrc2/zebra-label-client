@@ -18,7 +18,6 @@ import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
-// #FIXME MCC 20-12-31 Enable such that LogFactory does not fail  complete ZebraPdf Svc
 
 /**
  * @author mcolegrove
@@ -60,6 +59,9 @@ public class RenderZebraSvc {
             LOG.error("cannot render content was null:" + labelContent);
             return null;
         }
+//        ClientConfig clientConfig = new ClientConfig();
+//        clientConfig.register(MultiPartFeature.class);
+//        Client client = ClientBuilder.newClient(clientConfig);
         Client client = ClientBuilder.newBuilder().register(MultiPartFeature.class).build();
 
         String path = URL + renderReq.getWidth() + "x" + renderReq.getHeight() + "/0/";

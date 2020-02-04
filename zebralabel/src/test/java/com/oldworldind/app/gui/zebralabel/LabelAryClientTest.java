@@ -28,7 +28,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 // #FIXME MCC 20-12-31 Enable such that LogFactory does not fail 
-
 /**
  * @author mcolegrove
  * @since Apr 16, 2018
@@ -59,11 +58,11 @@ public class LabelAryClientTest {
 
         LOG.info("ckf:" + file.getAbsolutePath());
 
-        doCleanup(60, file, true);
+        doCleanup(20, file, true);
     }
 
     @Test
-        @Ignore
+    @Ignore
     public void testService3() throws IOException {
 
         RenderRequest rr = getPngRequest(2, 4, "mypnghFile_");
@@ -83,7 +82,7 @@ public class LabelAryClientTest {
     }
 
     @Test
-        @Ignore
+    @Ignore
     public void testService2() throws IOException {
         RenderRequest rr = getPngRequest(2, 4, "mypndFile_");
         RenderZebraSvc svc = new RenderZebraSvc();
@@ -95,7 +94,7 @@ public class LabelAryClientTest {
     }
 
     @Test
-        @Ignore
+    @Ignore
     public void testService() throws IOException {
         String targFile = "label.pdf";
         Client client = ClientBuilder.newBuilder().register(MultiPartFeature.class).build();
@@ -124,11 +123,13 @@ public class LabelAryClientTest {
         assertTrue("file must exist:" + file, file != null && file.exists());
         if (kminsize > 0) {
             long msize = kminsize * 1024;
+            long fsize = file.length();
+            LOG.info("File size:" + fsize + " min k to expect:" + kminsize + ", or=" + msize);
             assertTrue("file must be k:" + kminsize + ", or=" + msize + ", vs:" + file, file.length() >= msize);
         }
         if (cleanUp) {
             assertTrue("file must clean :" + file, FileUtils.deleteQuietly(file));
-			LOG.info("did clean up on:" + file);
+            LOG.info("did clean up on:" + file);
             return;
         }
         LOG.info("file retained:" + file);
