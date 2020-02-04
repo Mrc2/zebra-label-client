@@ -41,7 +41,6 @@ public class LabelAryClientTest {
     private final String zipls = "somefiles.zpl";
 
     @Test
-    @Ignore
     public void testService4() throws IOException {
 
         RenderRequest rr = getPdfRequest(6, 4, "mypdfFile_");
@@ -62,7 +61,6 @@ public class LabelAryClientTest {
     }
 
     @Test
-    @Ignore
     public void testService3() throws IOException {
 
         RenderRequest rr = getPngRequest(2, 4, "mypnghFile_");
@@ -82,7 +80,6 @@ public class LabelAryClientTest {
     }
 
     @Test
-    @Ignore
     public void testService2() throws IOException {
         RenderRequest rr = getPngRequest(2, 4, "mypndFile_");
         RenderZebraSvc svc = new RenderZebraSvc();
