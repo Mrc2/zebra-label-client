@@ -13,7 +13,8 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -21,7 +22,7 @@ import org.apache.log4j.Logger;
  * @author mcolegrove
  */
 public final class ZplFileParser {
-    private static final Logger LOG = Logger.getLogger(ZplFileParser.class);
+    private static final Logger LOG = LogManager.getLogger(ZplFileParser.class);
 //    private static final String BYTES_UTF_8 = "UTF-8";
     private static final String BYTES_WINDOWS_WTF = "Cp1252";
     private static final String START_OF_LABEL_CODE = "?XA";

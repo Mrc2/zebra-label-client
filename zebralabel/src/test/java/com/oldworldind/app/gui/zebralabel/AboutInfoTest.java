@@ -5,7 +5,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 /**
@@ -14,7 +15,7 @@ import org.junit.Test;
  * @author mcolegrove
  */
 public class AboutInfoTest {
-    private static final Logger LOG = Logger.getLogger(AboutInfoTest.class);
+    private static final Logger LOG = LogManager.getLogger(AboutInfoTest.class);
 
     @Test
     public void testGetAppName() {

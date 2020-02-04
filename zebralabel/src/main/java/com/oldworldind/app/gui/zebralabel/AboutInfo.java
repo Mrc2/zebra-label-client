@@ -7,14 +7,15 @@ import java.util.ResourceBundle;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @since Feb 19, 2013 at 6:13:47 PM
  * @author mcolegrove
  */
 public class AboutInfo {
-    private static final Logger LOG = Logger.getLogger(AboutInfo.class);
+    private static final Logger LOG = LogManager.getLogger(AboutInfo.class);
     private static final String RESOURCES_BUNDLE = "com/oldworldind/app/gui/zebralabel/zebralabelprt";
 
     public static String getAppName() {

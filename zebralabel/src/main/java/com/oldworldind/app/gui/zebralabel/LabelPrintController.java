@@ -3,6 +3,14 @@ package com.oldworldind.app.gui.zebralabel;
 import java.io.File;
 import java.util.Date;
 import java.util.Map.Entry;
+
+import javax.print.DocFlavor;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.ServiceUI;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.print.Printer;
@@ -14,19 +22,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import javax.print.DocFlavor;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.ServiceUI;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class LabelPrintController {
-    private static final Logger LOG = LoggerFactory.getLogger(LabelPrintController.class);
+    private static final Logger LOG = LogManager.getLogger(LabelPrintController.class);
     @FXML
     private TextField firstNameField;
     @FXML

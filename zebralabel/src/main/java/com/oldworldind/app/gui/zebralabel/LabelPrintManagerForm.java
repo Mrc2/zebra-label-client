@@ -1,5 +1,7 @@
 package com.oldworldind.app.gui.zebralabel;
 
+import static java.nio.charset.Charset.defaultCharset;
+
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
@@ -7,13 +9,13 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+
 import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
@@ -26,6 +28,7 @@ import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -33,7 +36,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -42,7 +46,7 @@ import org.apache.log4j.Logger;
  */
 public class LabelPrintManagerForm extends javax.swing.JPanel {
     private static final long serialVersionUID = 3366893204177851100L;
-    private static final Logger LOG = Logger.getLogger(LabelPrintManagerForm.class);
+    private static final Logger LOG = LogManager.getLogger(LabelPrintManagerForm.class);
     public static final String FILETYPE_XREF = "Xref";
     public static final String FILETYPE_ZPL = "txt/wri";
     private static final String DATE_DISPLAYPATTERN = "MM/dd/yy @HH:mm:ss:SSSSS";
@@ -62,13 +66,15 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
     private static boolean checkPrinterSettings(String zplPrinterName) {
 
         if (zplPrinterName == null || zplPrinterName.isEmpty()) {
-            throw new IllegalArgumentException("A Valid ZPL Enabled Printer was not found with name:" + zplPrinterName + ": ");
+            throw new IllegalArgumentException(
+                "A Valid ZPL Enabled Printer was not found with name:" + zplPrinterName + ": ");
         }
         PrinterFinderSvc svc = new PrinterFinderSvc();
 
         String fullName = svc.getFirstLabelPrinterName(zplPrinterName);
         if (fullName == null || fullName.isEmpty()) {
-            throw new IllegalArgumentException("A Valid ZPL Enabled Printer was not found with name:" + zplPrinterName + ": ");
+            throw new IllegalArgumentException(
+                "A Valid ZPL Enabled Printer was not found with name:" + zplPrinterName + ": ");
         }
         PrintService psZebra = svc.getFirstLabelPrinterServiceNamed(fullName);
         DocFlavor autoflavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
@@ -139,36 +145,43 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         //#FYI  Pre Creation Code of the JPanel
-        String zplpath = getDefaultZplPath(pathToZipFilesDefault);
+//        String zplpath = getDefaultZplPath(pathToZipFilesDefault);
         systemPanel = new javax.swing.JPanel();
         jPrinterIdentifierLabel = new javax.swing.JLabel();
-        //#FYI  Enables starting lookup point for Zpl Files
-        final String pathToArchive = getDefaultZplPath(pathToZipFilesDefault);
-        archivePathTextField = new javax.swing.JTextField();
-        archivePathLabel = new javax.swing.JLabel();
         //#FYI  Enables starting lookup point from path in field list
         final String zplPrinterName = getDefaultZplPrinterName(zebraLabelPrinterDefault);
         jTextPrinterName = new javax.swing.JTextField();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        log = new javax.swing.JTextArea();
+        jButtonLookupPrinter = new javax.swing.JButton();
+        jTabbedPaneLabelSource = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
         barCodeSourceLabel = new javax.swing.JLabel();
         //#FYI File Name to Import to HFA
         //#FYI  Enables starting lookup point from path in field list
         barCodeImageFileName = new javax.swing.JTextField();
         openButton = new javax.swing.JButton();
-        jButtonLookupPrinter = new javax.swing.JButton();
+        //#FYI  Enables starting lookup point for Zpl Files
+        final String pathToArchive = getDefaultZplPath(pathToZipFilesDefault);
+        archivePathTextField = new javax.swing.JTextField();
+        archivePathLabel = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jBarByteTextArea = new javax.swing.JTextArea();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        log = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         fileInputJTable = new javax.swing.JTable();
         jButtonPanel = new javax.swing.JPanel();
-        jButtonParse = new javax.swing.JButton();
         jButtonPrintLabelFile = new javax.swing.JButton();
-        jButtonClose = new javax.swing.JButton();
         jButtonParse2 = new javax.swing.JButton();
-        jButtonPrintConfig = new javax.swing.JButton();
+        jButtonPrintLabelContent = new javax.swing.JButton();
+        jButtonClose = new javax.swing.JButton();
         jPanelButtons2 = new javax.swing.JPanel();
         jButtonParse1 = new javax.swing.JButton();
         jButton2x4TestLabel = new javax.swing.JButton();
         jButtonPrintTestLabel = new javax.swing.JButton();
+        jButtonPrintConfig = new javax.swing.JButton();
+        jButtonParse = new javax.swing.JButton();
 
         jButtonLabelPrinterDiagnostics.setText("Printer Diagnostics");
         jButtonLabelPrinterDiagnostics.setToolTipText("");
@@ -215,55 +228,29 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 100, Short.MAX_VALUE)
-        );
+            .add(0, 100, Short.MAX_VALUE));
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 100, Short.MAX_VALUE)
-        );
+            .add(0, 100, Short.MAX_VALUE));
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 100, Short.MAX_VALUE)
-        );
+            .add(0, 100, Short.MAX_VALUE));
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 100, Short.MAX_VALUE)
-        );
+            .add(0, 100, Short.MAX_VALUE));
 
-        setBackground(new java.awt.Color(153, 255, 153));
+        setBackground(new java.awt.Color(174, 208, 234));
         setMaximumSize(new java.awt.Dimension(1200, 1024));
         setPreferredSize(formDimensions);
 
         jPrinterIdentifierLabel.setText("Label Printer ");
 
-        archivePathTextField.setText(pathToArchive);
-
-        archivePathLabel.setText("Archive Path");
-
         jTextPrinterName.setText(zplPrinterName);
 
-        log.setColumns(20);
-        log.setRows(5);
-        log.setName("log"); // NOI18N
-        jScrollPane4.setViewportView(log);
-
-        barCodeSourceLabel.setText("Bar Code Source");
-
-        barCodeImageFileName.setText(pathToZipFilesDefault);
-        barCodeImageFileName.setMaximumSize(new java.awt.Dimension(45, 14));
-
-        openButton.setText("Open");
-        openButton.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openButtonopenFile(evt);
-            }
-        });
-
-        jButtonLookupPrinter.setIcon(new javax.swing.ImageIcon(getClass().getResource(PRINTER_IMAGE_ICON))); // NOI18N
+        jButtonLookupPrinter.setIcon(new javax.swing.ImageIcon(getClass().getResource(PRINTER_IMAGE_ICON)));
         jButtonLookupPrinter.setText("Printer");
         jButtonLookupPrinter.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -278,61 +265,143 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             }
         });
 
+        jTabbedPaneLabelSource.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPaneLabelSourceStateChanged(evt);
+            }
+        });
+
+        barCodeSourceLabel.setText("Bar Code Source");
+
+        barCodeImageFileName.setText(pathToZipFilesDefault);
+        barCodeImageFileName.setMaximumSize(new java.awt.Dimension(45, 14));
+
+        openButton.setText("Open");
+        openButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openButtonopenFile(evt);
+            }
+        });
+
+        archivePathTextField.setText(pathToArchive);
+
+        archivePathLabel.setText("Archive Path");
+
+        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+            .add(22, 22, 22)
+            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(archivePathLabel)
+            .add(10, 10, 10))
+            .add(barCodeSourceLabel))
+            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+            .add(38, 38, 38)
+            .add(barCodeImageFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 115,
+            org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(18, 18, 18)
+            .add(openButton)
+            .add(0, 0, Short.MAX_VALUE))
+            .add(jPanel3Layout.createSequentialGroup()
+            .add(6, 6, 6)
+            .add(archivePathTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)))
+            .add(73, 73, 73)));
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+            .addContainerGap()
+            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+            .add(barCodeImageFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+            org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(barCodeSourceLabel)
+            .add(openButton))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+            .add(archivePathTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+            org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(archivePathLabel))
+            .addContainerGap(91, Short.MAX_VALUE)));
+
+        jTabbedPaneLabelSource.addTab("Bar Code Label File", jPanel3);
+
+        jBarByteTextArea.setColumns(20);
+        jBarByteTextArea.setRows(5);
+        jScrollPane1.setViewportView(jBarByteTextArea);
+
+        org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel4Layout.createSequentialGroup()
+            .addContainerGap()
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+            .addContainerGap()));
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE));
+
+        jTabbedPaneLabelSource.addTab("Bar Code Content", jPanel4);
+
+        log.setColumns(20);
+        log.setRows(5);
+        log.setName("log"); // NOI18N
+        jScrollPane4.setViewportView(log);
+
+        org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel5Layout.createSequentialGroup()
+            .add(20, 20, 20)
+            .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 411,
+            org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(15, Short.MAX_VALUE)));
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel5Layout.createSequentialGroup()
+            .addContainerGap()
+            .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)));
+
+        jTabbedPaneLabelSource.addTab("Status Log", jPanel5);
+
         org.jdesktop.layout.GroupLayout systemPanelLayout = new org.jdesktop.layout.GroupLayout(systemPanel);
         systemPanel.setLayout(systemPanelLayout);
         systemPanelLayout.setHorizontalGroup(
             systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(systemPanelLayout.createSequentialGroup()
-            .add(15, 15, 15)
-            .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 304, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(20, 20, 20)
+            .add(jPrinterIdentifierLabel)
+            .add(16, 16, 16)
+            .add(jTextPrinterName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 147,
+            org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jButtonLookupPrinter)
             .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, systemPanelLayout.createSequentialGroup()
-            .add(systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(systemPanelLayout.createSequentialGroup()
             .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(archivePathLabel)
-            .add(jPrinterIdentifierLabel))
-            .add(10, 10, 10))
-            .add(systemPanelLayout.createSequentialGroup()
-            .addContainerGap()
-            .add(barCodeSourceLabel)))
-            .add(systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(systemPanelLayout.createSequentialGroup()
-            .add(38, 38, 38)
-            .add(barCodeImageFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 115, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(systemPanelLayout.createSequentialGroup()
-            .add(6, 6, 6)
-            .add(systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-            .add(archivePathTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-            .add(jTextPrinterName))))
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jButtonLookupPrinter)
-            .add(openButton))
-            .add(194, 194, 194)));
+            .add(jTabbedPaneLabelSource, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 467,
+            org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(35, 35, 35)));
         systemPanelLayout.setVerticalGroup(
             systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, systemPanelLayout.createSequentialGroup()
-            .add(16, 16, 16)
+            .add(systemPanelLayout.createSequentialGroup()
+            .addContainerGap()
             .add(systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-            .add(barCodeImageFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(barCodeSourceLabel)
-            .add(openButton))
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-            .add(archivePathTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(archivePathLabel))
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-            .add(jTextPrinterName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jTextPrinterName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+            org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .add(jPrinterIdentifierLabel)
             .add(jButtonLookupPrinter))
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-            .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 127, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            .add(18, 18, 18)
+            .add(jTabbedPaneLabelSource)));
 
-        final Integer[] columnWidth = (Integer[]) Array.newInstance(Integer.class, dm.getColumnCount());
+//        final Integer[] columnWidth = (Integer[]) Array.newInstance(Integer.class, dm.getColumnCount());
         fileInputJTable.setModel(dm);
         fileInputJTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         fileInputJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -351,26 +420,18 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
                         barCodeImageFileName.setText((String) selectedName);
 
                     } else {
-                    barCodeImageFileName.setText(
-                        String.format("Selected Row in view: %d. "
-                        + "Selected Row in model: %d.",
-                        viewRow, modelRow));
+                        barCodeImageFileName.setText(
+                            String.format("Selected Row in view: %d. "
+                            + "Selected Row in model: %d.",
+                            viewRow, modelRow));
+                    }
                 }
-            }
             }
         });
         jScrollPane2.setViewportView(fileInputJTable);
 
         jButtonPanel.setBackground(getBackground());
         jButtonPanel.setPreferredSize(new java.awt.Dimension(450, 41));
-
-        jButtonParse.setText("Calibrate Printer");
-        jButtonParse.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCalibrateClicked(evt);
-            }
-        });
 
         jButtonPrintLabelFile.setText("Print Label File");
         jButtonPrintLabelFile.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -386,14 +447,6 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             }
         });
 
-        jButtonClose.setText("Close");
-        jButtonClose.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCloseActionPerformed(evt);
-            }
-        });
-
         jButtonParse2.setText("Calibrate Printer");
         jButtonParse2.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -402,11 +455,25 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             }
         });
 
-        jButtonPrintConfig.setText("Print Label Config");
-        jButtonPrintConfig.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonPrintLabelContent.setText("Print Label Content");
+        jButtonPrintLabelContent.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonPrintConfigjButtonCalibrateClicked(evt);
+                jButtonPrintLabelContentMouseClicked(evt);
+            }
+        });
+        jButtonPrintLabelContent.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPrintLabelContentActionPerformed(evt);
+            }
+        });
+
+        jButtonClose.setText("Close");
+        jButtonClose.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCloseActionPerformed(evt);
             }
         });
 
@@ -415,34 +482,29 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         jButtonPanelLayout.setHorizontalGroup(
             jButtonPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jButtonPanelLayout.createSequentialGroup()
-                .add(jButtonPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jButtonPanelLayout.createSequentialGroup()
-                        .add(19, 19, 19)
-                        .add(jButtonPrintLabelFile)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jButtonClose)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jButtonParse))
-                    .add(jButtonPanelLayout.createSequentialGroup()
-                        .add(252, 252, 252)
-                        .add(jButtonParse2)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButtonPrintConfig)
-                .addContainerGap())
-        );
+            .add(252, 252, 252)
+            .add(jButtonParse2)
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(jButtonPanelLayout.createSequentialGroup()
+            .add(25, 25, 25)
+            .add(jButtonPrintLabelFile)
+            .add(18, 18, 18)
+            .add(jButtonPrintLabelContent)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+            .add(jButtonClose)
+            .add(22, 131, Short.MAX_VALUE)));
         jButtonPanelLayout.setVerticalGroup(
             jButtonPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jButtonPanelLayout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jButtonPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButtonPrintLabelFile)
-                    .add(jButtonClose)
-                    .add(jButtonParse)
-                    .add(jButtonPrintConfig, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jButtonParse2)
-                .addContainerGap())
-        );
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(jButtonPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+            .add(jButtonPrintLabelFile)
+            .add(jButtonPrintLabelContent)
+            .add(jButtonClose))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+            Short.MAX_VALUE)
+            .add(jButtonParse2)
+            .addContainerGap()));
 
         jPanelButtons2.setBackground(getBackground());
 
@@ -493,57 +555,88 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         jPanelButtons2Layout.setHorizontalGroup(
             jPanelButtons2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanelButtons2Layout.createSequentialGroup()
-                .addContainerGap()
+            .addContainerGap()
             .add(jButtonPrintTestLabel)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton2x4TestLabel)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jButtonParse1)
-                .addContainerGap())
-        );
+            .add(jButton2x4TestLabel)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+            Short.MAX_VALUE)
+            .add(jButtonParse1)
+            .addContainerGap()));
         jPanelButtons2Layout.setVerticalGroup(
             jPanelButtons2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanelButtons2Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanelButtons2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButtonParse1)
-                    .add(jButton2x4TestLabel)
-                    .add(jButtonPrintTestLabel))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+            .addContainerGap()
+            .add(jPanelButtons2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+            .add(jButtonParse1)
+            .add(jButton2x4TestLabel)
+            .add(jButtonPrintTestLabel))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+
+        jButtonPrintConfig.setText("Print Label Config");
+        jButtonPrintConfig.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonPrintConfigjButtonCalibrateClicked(evt);
+            }
+        });
+
+        jButtonParse.setText("Calibrate Printer");
+        jButtonParse.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCalibrateClicked(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(30, 30, 30)
-                        .add(jPanelButtons2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(layout.createSequentialGroup()
-                        .add(25, 25, 25)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jButtonPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 565, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(layout.createSequentialGroup()
-                                .add(systemPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 504, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(18, 18, 18)
-                                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+            .add(31, 31, 31)
+            .add(systemPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 471,
+            org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+            org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(layout.createSequentialGroup()
+            .addContainerGap()
+            .add(jButtonPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 565,
+            org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(layout.createSequentialGroup()
+            .add(33, 33, 33)
+            .add(jPanelButtons2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+            org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(layout.createSequentialGroup()
+            .add(42, 42, 42)
+            .add(jButtonParse, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129,
+            org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(18, 18, 18)
+            .add(jButtonPrintConfig)))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(46, 46, 46)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(systemPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .add(30, 30, 30)
-            .add(jButtonPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanelButtons2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
+            .add(layout.createSequentialGroup()
+            .add(20, 20, 20)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(systemPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+            org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 261,
+            org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(18, 18, 18)
+            .add(jButtonPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+            org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 17, Short.MAX_VALUE)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+            .add(jButtonParse)
+            .add(jButtonPrintConfig, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29,
+            org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(18, 18, 18)
+            .add(jPanelButtons2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+            org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)));
     }// </editor-fold>
 
     private void openButtonopenFile(java.awt.event.ActionEvent evt) {
@@ -565,10 +658,12 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             int rc = this.fileInputJTable.getModel().getRowCount();
             boolean canAddModViewCell = fileInputJTable.isCellEditable(rc, 0);
 
-            for (File file : files) {
+            for (int fi = 0; fi < files.length; fi++) {
+                File file = files[fi];
                 //This is where a real application would open the file.
-                log.append("Opening: " + file.getName() + " path" + file.getAbsolutePath() + " updated:" + fdfd.format(file.lastModified())
-                        + " add row after:" + rc + " can Add^" + canAddModViewCell + "." + OTHER_LINE_END);
+                log.append("Opening: " + file.getName() + " path" + file.getAbsolutePath() + " updated:" + fdfd.format(
+                    file.lastModified())
+                    + " add row after:" + rc + " can Add^" + canAddModViewCell + "." + OTHER_LINE_END);
 
                 if (canAddModViewCell) {
                     populateImageFileTable(file, fdfd);
@@ -592,7 +687,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             log.append("add to cell:" + coName);
         }
 
-       log.append(OTHER_LINE_END);
+        log.append(OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
 
         String isZip = "other";
@@ -616,7 +711,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         }
 
         dm.addFileInfo(file, isZip, recCnt, pageCnt, batchDate);
-        LOG.info("2 colname:" + dm.getColumnName(2)+ OTHER_LINE_END);
+        LOG.info("2 colname:" + dm.getColumnName(2) + OTHER_LINE_END);
 
 
         parseImageReferences();
@@ -703,12 +798,42 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         doListPrinterConfig(evt);
     }
 
+    private void jButtonPrintLabelContentMouseClicked(java.awt.event.MouseEvent evt) {
+        doPrintPastedLabel(evt);
+    }
+
+    private void jButtonPrintLabelContentActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void jTabbedPaneLabelSourceStateChanged(javax.swing.event.ChangeEvent evt) {
+
+        // TODO add your handling code here:
+        log.append("Label Source Tab statechanged:" + evt + ": all done" + OTHER_LINE_END);
+        log.setCaretPosition(log.getDocument().getLength());
+
+        JTabbedPane sourceTabbedPane = (JTabbedPane) evt.getSource();
+        int index = sourceTabbedPane.getSelectedIndex();
+        if (1 == index) {
+            jButtonPrintLabelContent.setEnabled(true);
+            jButtonPrintLabelFile.setEnabled(false);
+            return;
+        }
+        if (0 == index) {
+            jButtonPrintLabelContent.setEnabled(false);
+            jButtonPrintLabelFile.setEnabled(true);
+            return;
+        }
+        jButtonPrintLabelContent.setEnabled(false);
+        jButtonPrintLabelFile.setEnabled(false);
+    }
     // Variables declaration - do not modify
     private javax.swing.JLabel archivePathLabel;
     private javax.swing.JTextField archivePathTextField;
     private javax.swing.JTextField barCodeImageFileName;
     private javax.swing.JLabel barCodeSourceLabel;
     private javax.swing.JTable fileInputJTable;
+    private javax.swing.JTextArea jBarByteTextArea;
     private javax.swing.JButton jButton2x4TestLabel;
     private javax.swing.JButton jButtonClose;
     private javax.swing.JButton jButtonLabelPrinterDiagnostics;
@@ -718,8 +843,8 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
     private javax.swing.JButton jButtonParse1;
     private javax.swing.JButton jButtonParse2;
     private javax.swing.JButton jButtonPrintConfig;
+    private javax.swing.JButton jButtonPrintLabelContent;
     private javax.swing.JButton jButtonPrintLabelFile;
-
     private javax.swing.JButton jButtonPrintTestLabel;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -736,10 +861,15 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
     private javax.swing.JMenuBar jMenuBar4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelButtons2;
     private javax.swing.JLabel jPrinterIdentifierLabel;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTabbedPane jTabbedPaneLabelSource;
     private javax.swing.JTextField jTextPrinterName;
     private javax.swing.JTextArea log;
     private javax.swing.JButton openButton;
@@ -779,29 +909,42 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
     }
     private static final String WINDOWS_LINE_END = "\r\n";
 
+    private byte[] getCancelJobBytes() {
+        String lineEnd = OTHER_LINE_END;
+        StringBuilder buf = new StringBuilder(123);
+        buf.append("<------------- Finish and Clear Jobs in Memory --------------------------------------->").append(
+            lineEnd);
+        buf.append("~JA").append(lineEnd);  // finish and clear jobs in memory
+        return buf.toString().getBytes(Charset.forName(ZplFileParser.BYTE_CHAR_READER));
+    }
 
     private byte[] getPrintConfigBytes() {
         String lineEnd = OTHER_LINE_END;
         StringBuilder buf = new StringBuilder(123);
-        buf.append("<------------- Print Label Printer Config Label --------------------------------------->").append(lineEnd);
-
-        buf.append("~WC").append(lineEnd);
+        buf.append("<------------- Print Label Printer Config Label --------------------------------------->").append(
+            lineEnd);
+        buf.append("~WC").append(lineEnd);  // write configuration label
         return buf.toString().getBytes(Charset.forName(ZplFileParser.BYTE_CHAR_READER));
     }
 
-    private byte[] getPrinterCalibrateBytes() {
+    protected byte[] getPrinterCalibrateBytes() {
         String lineEnd = OTHER_LINE_END;
         StringBuilder buf = new StringBuilder(123);
         buf.append("<------------- Reset ZPL Printer script --------------------------------------->").append(lineEnd);
 
         buf.append("~JR").append(lineEnd);
+        buf.append("~JA").append(lineEnd); // cancel all prior labels
+        buf.append("~JG").append(lineEnd); // graphic media sensor
+        
         return buf.toString().getBytes(Charset.forName(ZplFileParser.BYTE_CHAR_READER));
     }
 
-    private byte[] get4x6CustomLabelBytes() {
+    protected byte[] get4x6CustomLabelBytes() {
         String lineEnd = OTHER_LINE_END;
         StringBuilder buf = new StringBuilder(123);
-        buf.append("<-------------4x6 TEST Label---------------Click file, print, select Zebra printer, press print--------------------------------------->").append(lineEnd);
+        buf.append(
+            "<-------------4x6 TEST Label---------------Click file, print, select Zebra printer, press print--------------------------------------->").append(
+            lineEnd);
 
         buf.append("~CC^").append(lineEnd);
         buf.append("^XA^JMA^FS^XZ").append(lineEnd);
@@ -900,13 +1043,17 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 
         PrinterFinderSvc svc = new PrinterFinderSvc();
 
+//        byte[] by = getTestStringBytes();
+//        byte[] by = getSampleLabelBytes();
+//        byte[] by = getScoopedLabelBytes();
+        byte[] custom4x6 = get4x6CustomLabelBytes();
+
         String labelPartial = jTextPrinterName.getText();
 
         log.append("matching partial:" + labelPartial + OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
         if (svc.isNameIpStyle(labelPartial)) {
-            File labelFile = new File(archivePathTextField.getText() + File.separator + barCodeImageFileName.getText());
-            boolean done = doPrintByIp(labelPartial, labelFile);
+            boolean done = doPrintStreamByIp(labelPartial, custom4x6);
             log.append("Print by Ip  Service Completed:" + done + " verses:" + labelPartial + OTHER_LINE_END);
             log.setCaretPosition(log.getDocument().getLength());
             return;
@@ -927,10 +1074,6 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 
         jTextPrinterName.setText(fullName);
         DocPrintJob job = psZebra.createPrintJob();
-//        byte[] by = getTestStringBytes();
-//        byte[] by = getSampleLabelBytes();
-//        byte[] by = getScoopedLabelBytes();
-        byte[] by = get4x6CustomLabelBytes();
 
         /**
          * TEXT_PLAIN_UTF_8 => text/plain; charset=utf-8
@@ -947,7 +1090,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 //        DocFlavor flavor = new DocFlavor("text/plain",Charset.forName("Cp1252").getClass().getName());
         DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
 
-        Doc doc = new SimpleDoc(by, flavor, null);
+        Doc doc = new SimpleDoc(custom4x6, flavor, null);
         try {
             job.addPrintJobListener(new JobStatusListener(log));
             job.print(doc, null);
@@ -968,9 +1111,9 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 
         PrinterFinderSvc svc = new PrinterFinderSvc();
 
+        File labelFile = new File(archivePathTextField.getText() + File.separator + barCodeImageFileName.getText());
         String labelPartial = jTextPrinterName.getText();
         if (svc.isNameIpStyle(labelPartial)) {
-            File labelFile = new File(archivePathTextField.getText() + File.separator + barCodeImageFileName.getText());
             boolean done = doPrintByIp(labelPartial, labelFile);
             log.append("Print by Ip  Service Completed:" + done + " verses:" + labelPartial + OTHER_LINE_END);
             log.setCaretPosition(log.getDocument().getLength());
@@ -987,11 +1130,8 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         log.setCaretPosition(log.getDocument().getLength());
 
         jTextPrinterName.setText(fullName);
-//        fileInputJTable.getModel().
-        // #FIXME mcc 12-20-12 - obtain selected row label file name, verify contents available, create print job under psZebra
-        //  from bytes of this file.
 
-        File labelFile = new File(archivePathTextField.getText() + File.separator + barCodeImageFileName.getText());
+
 
         DocPrintJob job = psZebra.createPrintJob();
 //        byte[] by = getScoopedCustomLabelBytes();
@@ -1031,19 +1171,19 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         log.append("Event:" + evt.getButton() + " id:" + evt.getID() + OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
 
+
+        byte[] custom2x4 = get2x4CustomLabelBytes();
         PrinterFinderSvc svc = new PrinterFinderSvc();
 
         String labelPartial = jTextPrinterName.getText();
         log.append("matching partial:" + labelPartial + OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
         if (svc.isNameIpStyle(labelPartial)) {
-            File labelFile = new File(archivePathTextField.getText() + File.separator + barCodeImageFileName.getText());
-            boolean done = doPrintStreamByIp(labelPartial, get2x4CustomLabelBytes());
+            boolean done = doPrintStreamByIp(labelPartial, custom2x4);
             log.append("Print by Ip  Service Completed:" + done + " verses:" + labelPartial + OTHER_LINE_END);
             log.setCaretPosition(log.getDocument().getLength());
             return;
         }
-
 
         String fullName = svc.getFirstLabelPrinterName(labelPartial);
         log.append("matching printers:" + fullName + OTHER_LINE_END);
@@ -1060,12 +1200,10 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 
         jTextPrinterName.setText(fullName);
         DocPrintJob job = psZebra.createPrintJob();
-//        byte[] by = getScoopedLabelBytes();
-        byte[] by = get2x4CustomLabelBytes();
 
         DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
 
-        Doc doc = new SimpleDoc(by, flavor, null);
+        Doc doc = new SimpleDoc(custom2x4, flavor, null);
         try {
             job.addPrintJobListener(new JobStatusListener(log));
             job.print(doc, null);
@@ -1077,7 +1215,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         }
     }
 
-    private byte[] get2x4CustomLabelBytes() {
+    protected byte[] get2x4CustomLabelBytes() {
         String lineEnd = OTHER_LINE_END;
         StringBuilder buf = new StringBuilder(123);
         buf.append("<-------------2x4 TEST Label---------------Click file, print, select Zebra printer, press print--------------------------------------->").append(lineEnd);
@@ -1129,9 +1267,12 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
     private void doPrinterLookup(MouseEvent evt) {
         PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
         DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
-        PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
-        PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
-        PrintService service = ServiceUI.printDialog(null, 200, 200, printService, defaultService, flavor, pras);
+        PrintService printService[] = PrintServiceLookup.lookupPrintServices(
+            flavor, pras);
+        PrintService defaultService = PrintServiceLookup
+            .lookupDefaultPrintService();
+        PrintService service = ServiceUI.printDialog(null, 200, 200,
+            printService, defaultService, flavor, pras);
         if (service != null) {
             LOG.info(" selected p:" + service.getName());
             jTextPrinterName.setText(service.getName());
@@ -1140,7 +1281,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         LOG.info("no printer selected");
     }
 
-  private boolean doPrintStreamByIp(String labelByIp, byte[] contentArray) {
+    private boolean doPrintStreamByIp(String labelByIp, byte[] contentArray) {
         PrinterFinderSvc svc = new PrinterFinderSvc();
 
         int port = svc.getPort(labelByIp);
@@ -1194,12 +1335,11 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         log.append("matching partial:" + labelPartial + OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
         if (svc.isNameIpStyle(labelPartial)) {
-            File labelFile = new File(archivePathTextField.getText() + File.separator + barCodeImageFileName.getText());
             boolean done = doPrintStreamByIp(labelPartial, calibrateBytes);
             log.append("Print by Ip  Service Completed:" + done + " verses:" + labelPartial + OTHER_LINE_END);
             log.setCaretPosition(log.getDocument().getLength());
             return;
-}
+        }
 
 
         String fullName = svc.getFirstLabelPrinterName(labelPartial);
@@ -1231,13 +1371,14 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
     }
 
     private void doListPrinterConfig(MouseEvent evt) {
-       log.append(OTHER_LINE_END);
+        log.append(OTHER_LINE_END);
         log.append("list Printer Config sNow" + OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
 
         log.append("Event:" + evt.getButton() + " id:" + evt.getID() + OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
 
+        byte[] cancelBytes = getCancelJobBytes();
         byte[] calibrateBytes = getPrintConfigBytes();
 
         PrinterFinderSvc svc = new PrinterFinderSvc();
@@ -1246,10 +1387,15 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         log.append("matching partial:" + labelPartial + OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
         if (svc.isNameIpStyle(labelPartial)) {
-            File labelFile = new File(archivePathTextField.getText() + File.separator + barCodeImageFileName.getText());
-            boolean done = doPrintStreamByIp(labelPartial, calibrateBytes);
-            log.append("Print by Ip  Service Completed:" + done + " verses:" + labelPartial + OTHER_LINE_END);
+            boolean done = doPrintStreamByIp(labelPartial, cancelBytes);
+            log.append("Print by Ip Cancel Service Completed:" + done + " verses:" + labelPartial + OTHER_LINE_END);
             log.setCaretPosition(log.getDocument().getLength());
+            if (done) {
+                done = doPrintStreamByIp(labelPartial, calibrateBytes);
+                log.append(
+                    "Print by Ip Label Printer Config Service Completed:" + done + " verses:" + labelPartial + OTHER_LINE_END);
+                log.setCaretPosition(log.getDocument().getLength());
+            }
             return;
         }
 
@@ -1270,13 +1416,72 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         jTextPrinterName.setText(fullName);
         DocPrintJob job = psZebra.createPrintJob();
         DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
-        Doc doc = new SimpleDoc(calibrateBytes, flavor, null);
+        Doc doc = new SimpleDoc(cancelBytes, flavor, null);
         try {
             job.addPrintJobListener(new JobStatusListener(log));
             job.print(doc, null);
 
         } catch (PrintException e) {
             LOG.error("Failed List Printer Config ", e);
+            log.append("Found printer: " + e + OTHER_LINE_END);
+            log.setCaretPosition(log.getDocument().getLength());
+        }
+
+        DocPrintJob job2 = psZebra.createPrintJob();
+        Doc doc2 = new SimpleDoc(calibrateBytes, flavor, null);
+        try {
+            job2.addPrintJobListener(new JobStatusListener(log));
+            job2.print(doc2, null);
+
+        } catch (PrintException e) {
+            LOG.error("Failed List Printer Config ", e);
+            log.append("Found printer: " + e + OTHER_LINE_END);
+            log.setCaretPosition(log.getDocument().getLength());
+        }
+    }
+
+    private void doPrintPastedLabel(MouseEvent evt) {
+        log.append("Event:" + evt.getButton() + " id:" + evt.getID() + OTHER_LINE_END);
+        log.setCaretPosition(log.getDocument().getLength());
+        log.append("PrinterLabel File Button clicked!" + OTHER_LINE_END);
+        log.setCaretPosition(log.getDocument().getLength());
+
+        Charset local = defaultCharset();
+
+        byte[] labelBytes = jBarByteTextArea.getText().getBytes(local);
+
+        PrinterFinderSvc svc = new PrinterFinderSvc();
+
+        String labelPartial = jTextPrinterName.getText();
+        if (svc.isNameIpStyle(labelPartial)) {
+            boolean didSpool = doPrintStreamByIp(labelPartial, labelBytes);
+
+            log.append("Print by Ip  Service Completed:" + didSpool + " verses:" + labelPartial + OTHER_LINE_END);
+            log.setCaretPosition(log.getDocument().getLength());
+            return;
+        }
+        String fullName = svc.getFirstLabelPrinterName(labelPartial);
+        PrintService psZebra = svc.getFirstLabelPrinterServiceNamed(fullName);
+        if (psZebra == null) {
+            log.append("service nof found for name:" + fullName + OTHER_LINE_END);
+            log.setCaretPosition(log.getDocument().getLength());
+            return;
+        }
+        log.append("Found printer: " + fullName + OTHER_LINE_END);
+        log.setCaretPosition(log.getDocument().getLength());
+
+        jTextPrinterName.setText(fullName);
+
+        DocPrintJob job = psZebra.createPrintJob();
+
+        DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+
+        Doc doc = new SimpleDoc(labelBytes, flavor, null);
+        try {
+            job.addPrintJobListener(new JobStatusListener(log));
+            job.print(doc, null);
+
+        } catch (PrintException e) {
             log.append("Found printer: " + e + OTHER_LINE_END);
             log.setCaretPosition(log.getDocument().getLength());
         }

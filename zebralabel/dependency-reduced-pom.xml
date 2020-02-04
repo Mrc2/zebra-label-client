@@ -3,38 +3,31 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.oldworldind</groupId>
   <artifactId>zebralabel</artifactId>
-  <name>Old World Zebra Labels Fx</name>
+  <name>Old World Zebra Labels</name>
   <version>1.0-SNAPSHOT</version>
   <url>http://maven.apache.org</url>
-  <organization>
-    <name>Old World Industries LLC</name>
-  </organization>
   <build>
+    <finalName>${project.artifactId}</finalName>
     <plugins>
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.8.2</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <skipDeploy>true</skipDeploy>
         </configuration>
       </plugin>
       <plugin>
-        <groupId>com.zenjava</groupId>
-        <artifactId>javafx-maven-plugin</artifactId>
-        <version>8.1.2</version>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
         <configuration>
-          <mainClass>com.oldworldind.app.gui.zebralabel.RouteFxLabelApp</mainClass>
-          <keyStoreAlias>example-user</keyStoreAlias>
-          <keyStorePassword>example-password</keyStorePassword>
-          <permissions>
-            <permission>all-permissions</permission>
-          </permissions>
+          <source>1.8</source>
+          <target>1.8</target>
+          <showDeprecation>true</showDeprecation>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.1</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -43,7 +36,6 @@
             </goals>
             <configuration>
               <transformers>
-                <transformer />
                 <transformer>
                   <mainClass>com.oldworldind.app.gui.zebralabel.RouteLabelApp</mainClass>
                 </transformer>
@@ -81,10 +73,80 @@
       </exclusions>
     </dependency>
   </dependencies>
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.0.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>3.0.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.12.0</version>
+        <configuration>
+          <includeTests>true</includeTests>
+          <linkXref>true</linkXref>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>150</minimumTokens>
+          <excludes>
+            <exclude>**/generated/*.java</exclude>
+          </excludes>
+          <excludeRoots>
+            <excludeRoot>target/generated-sources/stubs</excludeRoot>
+          </excludeRoots>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.5</version>
+        <configuration>
+          <xmlOutput>true</xmlOutput>
+          <xmlOutputDirectory>target/site</xmlOutputDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+          <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>index</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.5</version>
+        <configuration>
+          <xmlOutput>true</xmlOutput>
+          <xmlOutputDirectory>target/site</xmlOutputDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+  <distributionManagement>
+    <repository>
+      <id>localrt</id>
+      <name>Local RunTime</name>
+      <url>file:///${user.home}/javaruntimes/${project.artifactId}/</url>
+    </repository>
+    <site>
+      <id>localrt</id>
+      <name>Local RunTime</name>
+      <url>file:///${user.home}/sites/${project.artifactId}/</url>
+    </site>
+  </distributionManagement>
   <properties>
-    <slf4j.version>1.6.1</slf4j.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <javafx.version>2.2.4</javafx.version>
   </properties>
 </project>
-
