@@ -1,5 +1,5 @@
 package com.oldworldind.app.gui.zebralabel;
-// #FIXME MCC 20-12-31 Enable such that LogFactory does not fail  complete ZebraPdf Svc
+
 /**
  * @author mcolegrove
  * @since Apr 16, 2018
@@ -27,13 +27,13 @@ public final class RenderRequest {
     public static RenderRequest getPngRequest(int height, int width, int rotation, String mylabel) {
         return new RenderRequest(height, width, rotation, mylabel, RenderingType.PngImage);
     }
- 
+
     private RenderRequest(int height, int width, int rotation, String mylabel, RenderingType renderingType) {
         this.height = height;
         this.width = width;
         this.rotation = rotation;
         this.fileNamePrefix = mylabel;
-        this.renderingType = renderingType; 
+        this.renderingType = renderingType;
     }
 
     public int getHeight() {
