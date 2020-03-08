@@ -47,15 +47,15 @@ public final class ZplFileParser {
 
     static Map<String, Object> parse(File file) {
 
-        Map<String, Object> res = new HashMap<String, Object>();
-        res.put(FILE_SIZE_COUNT, Long.valueOf(0l));
-        res.put(LABEL_COUNT_PROPERTY, Integer.valueOf(0));
+        Map<String, Object> res = new HashMap<>();
+        res.put(FILE_SIZE_COUNT, 0l);
+        res.put(LABEL_COUNT_PROPERTY, 0);
         if (file == null) {
             return res;
         }
 
         LOG.info("starting parse on:" + file);
-        long fileSize = FileUtils.sizeOf(file);
+        long fileSize = file.length();
 
         res.put(FILE_SIZE_COUNT, fileSize);
         if (fileSize < 2) {

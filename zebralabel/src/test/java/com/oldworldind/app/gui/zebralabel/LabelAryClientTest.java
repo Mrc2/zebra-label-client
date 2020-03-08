@@ -20,9 +20,9 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.junit.Test;
 
@@ -48,6 +48,7 @@ public class LabelAryClientTest {
         InputStream is = this.getClass().getClassLoader().getResourceAsStream(zipls);
         StringBuilder sb = IoUtils.pipeToBuffer(is);
         String myString = sb.toString().trim();
+        LOG.info(zipls + "_toclean:" + myString);
         String cleaner = svc.replaceCharFakeh(myString);
 
         String myzip = svc.replaceCharQuote(cleaner);
@@ -68,6 +69,7 @@ public class LabelAryClientTest {
         InputStream is = this.getClass().getClassLoader().getResourceAsStream(ziplh);
         StringBuilder sb = IoUtils.pipeToBuffer(is);
         String myString = sb.toString().trim();
+        LOG.info(ziplh + "_toclean:" + myString);
         String cleaner = svc.replaceCharFakeh(myString);
 
         String myzip = svc.replaceCharQuote(cleaner);
@@ -122,8 +124,16 @@ public class LabelAryClientTest {
             LOG.info("File size:" + fsize + " min k to expect:" + kminsize + ", or=" + msize);
             assertTrue("file must be k:" + kminsize + ", or=" + msize + ", vs:" + file, file.length() >= msize);
         }
+
         if (cleanUp) {
-            assertTrue("file must clean :" + file, FileUtils.deleteQuietly(file));
+            boolean deleted = false;
+            try {
+
+                deleted = file.delete();
+            } catch (Exception e) {
+                LOG.error("no delete file:" + file, e);
+            }
+            assertTrue("file must clean :" + file, deleted);
             LOG.info("did clean up on:" + file);
             return;
         }
