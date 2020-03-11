@@ -22,11 +22,9 @@ import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.junit.Test;
-
-// #FIXME MCC 20-12-31 Enable such that LogFactory does not fail 
+ 
 /**
  * @author mcolegrove
  * @since Apr 16, 2018

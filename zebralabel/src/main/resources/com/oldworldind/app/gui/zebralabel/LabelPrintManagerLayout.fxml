@@ -8,7 +8,8 @@
 <?import javafx.scene.text.*?>
 <?scenebuilder-stylesheet ../../../../../styles/styles.css?>
 
-<AnchorPane id="rootPane" prefHeight="450.0" prefWidth="700.0" styleClass="main-panel" xmlns:fx="http://javafx.com/fxml" fx:controller="com.oldworldind.app.gui.zebralabel.LabelPrintController">
+<AnchorPane id="rootPane" prefHeight="450.0" prefWidth="700.0" styleClass="main-panel" xmlns:fx="http://javafx.com/fxml" 
+            fx:controller="com.oldworldind.app.gui.zebralabel.LabelPrintController">
   <children>
     <BorderPane layoutY="14.0" prefHeight="382.0">
       <bottom>
@@ -19,6 +20,9 @@
                 <Font size="12.0" fx:id="x1" />
               </font>
             </Button>
+            
+            <Button fx:id="cvtToImageFileBtn" font="$x1" onAction="#doImageCvtLabel" styleClass="owbutton" text="Convert to Image" />
+            
             <Button fx:id="closeBtn" font="$x1" onAction="#doClose" styleClass="owbutton" text="Close" />
             <Button fx:id="label46Btn" font="$x1" onAction="#doPrint46Label" styleClass="owbutton" text="4x6 Test Label" />
             <Button fx:id="label24Btn" font="$x1" onAction="#doPrint24Label" styleClass="owbutton" text="2x4 Test Label" />

@@ -6,7 +6,6 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.logging.Level;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -77,7 +76,7 @@ public class RenderZebraSvc {
             try {
                 Files.write(file.toPath(), body);
             } catch (IOException ex) {
-                java.util.logging.Logger.getLogger(RenderZebraSvc.class.getName()).log(Level.SEVERE, null, ex);
+                LOG.fatal("cannot write file for rsvp:200", ex);
             }
             return file;
         }

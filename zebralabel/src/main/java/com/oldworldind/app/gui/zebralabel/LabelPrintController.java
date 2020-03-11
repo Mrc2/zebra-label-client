@@ -37,6 +37,8 @@ public class LabelPrintController {
     @FXML
     private Button closeBtn;
     @FXML
+    private Button cvtToImageFileBtn;
+    @FXML
     private TextArea log;
     @FXML
     private MenuItem miOpen;
@@ -73,6 +75,21 @@ public class LabelPrintController {
     public void doPrintRealLabel() {
         Date d = new Date();
         messageLabel.setText("I printed a Real Label at :" + d);
+    }
+
+    /**
+     * @since 03/11/20
+     */
+    public void doImageCvtLabel() {
+        LOG.warn("start Image Conversion");
+
+        Date d = new Date();
+        messageLabel.setText("Convert to Image file from Zebra at :" + d);
+        Parent parent = cvtToImageFileBtn.getParent();
+
+        RenderZebraSvc toImgSvc = new RenderZebraSvc();
+        // #TODO MCC 20-06-01 Implement call out to RenderZebraSvc
+
     }
 
     public void doClose() {
@@ -168,7 +185,7 @@ public class LabelPrintController {
         DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
         PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
         PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
-          doPutInLog("captured default service:" + defaultService);
+        doPutInLog("captured default service:" + defaultService);
         PrintService service = ServiceUI.printDialog(null, 200, 200, printService, defaultService, flavor, pras);
         if (service != null) {
             LOG.info(" selected p:" + service.getName());
@@ -206,4 +223,5 @@ public class LabelPrintController {
             messageLabel.setText("Hello mysterious person");
         }
     }
+
 }
