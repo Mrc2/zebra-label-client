@@ -55,7 +55,7 @@ public class LabelAryClientTest {
 
         LOG.info("ckf:" + file.getAbsolutePath());
 
-        doCleanup(20, file, true);
+        doCleanup(15, file, true);
     }
 
     @Test
