@@ -42,6 +42,9 @@
         <goals>
             <goal>deploy:deploy</goal>
         </goals>
+        <activatedProfiles>
+                <activatedProfile>local</activatedProfile>
+        </activatedProfiles>
     </action>
     <action>
         <actionName>CUSTOM-clean install notest</actionName>
@@ -56,4 +59,14 @@
             <skipTests>true</skipTests>
         </properties>
     </action>
+    <action>
+            <actionName>CUSTOM-build site skip tests</actionName>
+            <displayName>build site skip tests</displayName>
+            <goals>
+                <goal>site:site</goal>
+            </goals>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+        </action>
 </actions>

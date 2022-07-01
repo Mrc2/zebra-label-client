@@ -13,11 +13,11 @@ public enum RenderingType {
      */
     PngImage(new MediaType("image", "png")), PdfImage(new MediaType("application","pdf"));
     
-    private RenderingType(MediaType type) {
+    RenderingType(MediaType type) {
         this.type = type;
     }
 
-    private MediaType type;
+    private final MediaType type;
 
     public MediaType getType() {
         return type;

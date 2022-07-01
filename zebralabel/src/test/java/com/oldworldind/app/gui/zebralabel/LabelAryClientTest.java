@@ -1,28 +1,22 @@
 package com.oldworldind.app.gui.zebralabel;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import static com.oldworldind.app.gui.zebralabel.RenderRequest.getPdfRequest;
-import static com.oldworldind.app.gui.zebralabel.RenderRequest.getPngRequest;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
+import static javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED;
 import javax.ws.rs.core.Response;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Test;
  
 /**
@@ -40,7 +34,7 @@ public class LabelAryClientTest {
     @Test
     public void testService4() throws IOException {
 
-        RenderRequest rr = getPdfRequest(6, 4, "mypdfFile_");
+        RenderRequest rr = RenderRequest.getPdfRequest(6, 4, "mypdfFile_");
 
         RenderZebraSvc svc = new RenderZebraSvc();
         InputStream is = this.getClass().getClassLoader().getResourceAsStream(zipls);
@@ -61,7 +55,7 @@ public class LabelAryClientTest {
     @Test
     public void testService3() throws IOException {
 
-        RenderRequest rr = getPngRequest(2, 4, "mypnghFile_");
+        RenderRequest rr = RenderRequest.getPngRequest(2, 4, "mypnghFile_");
 
         RenderZebraSvc svc = new RenderZebraSvc();
         InputStream is = this.getClass().getClassLoader().getResourceAsStream(ziplh);
@@ -80,7 +74,7 @@ public class LabelAryClientTest {
 
     @Test
     public void testService2() throws IOException {
-        RenderRequest rr = getPngRequest(2, 4, "mypndFile_");
+        RenderRequest rr = RenderRequest.getPngRequest(2, 4, "mypndFile_");
         RenderZebraSvc svc = new RenderZebraSvc();
         File file = svc.renderRequest(rr, zpl);
         assertNotNull("sb ok", file);

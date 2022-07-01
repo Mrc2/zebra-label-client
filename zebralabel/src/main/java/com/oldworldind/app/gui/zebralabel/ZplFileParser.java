@@ -10,8 +10,6 @@ import java.lang.reflect.Array;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -70,9 +68,7 @@ public final class ZplFileParser {
             }
 
             Date lastModified = new Date(file.lastModified());
-            if (lastModified != null) {
-                res.put(LABEL_FILE_LASTMODIFIED_DATE, lastModified);
-            }
+             res.put(LABEL_FILE_LASTMODIFIED_DATE, lastModified);
             is = new DataInputStream(new FileInputStream(file));
             byte[] buf = (byte[]) Array.newInstance(byte.class, 4096);
             int bufferRead = is.read(buf);

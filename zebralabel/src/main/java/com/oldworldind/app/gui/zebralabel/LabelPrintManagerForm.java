@@ -1,7 +1,5 @@
 package com.oldworldind.app.gui.zebralabel;
 
-import static java.nio.charset.Charset.defaultCharset;
-
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
@@ -11,11 +9,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import static java.nio.charset.Charset.defaultCharset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-
 import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
@@ -33,7 +31,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
@@ -1202,7 +1199,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 
         RenderZebraSvc toImgSvc = new RenderZebraSvc();
         // #TODO MCC 20-06-01 Implement call out to RenderZebraSvc
-       log.append("Got zebra Convert Service:" + OTHER_LINE_END);
+       log.append("Got zebra Convert Service:" + OTHER_LINE_END + " via:" + toImgSvc);
         log.setCaretPosition(log.getDocument().getLength());
         
         PrinterFinderSvc svc = new PrinterFinderSvc();
