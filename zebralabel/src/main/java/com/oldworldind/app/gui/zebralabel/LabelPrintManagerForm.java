@@ -1,19 +1,21 @@
 package com.oldworldind.app.gui.zebralabel;
 
+import static java.nio.charset.Charset.defaultCharset;
+
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
-import java.io.IOException;
+import java.io.IOException; 
 import java.net.URL;
 import java.nio.charset.Charset;
-import static java.nio.charset.Charset.defaultCharset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+
 import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
@@ -31,6 +33,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
