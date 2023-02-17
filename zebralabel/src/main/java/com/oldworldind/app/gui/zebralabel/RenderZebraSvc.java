@@ -64,10 +64,15 @@ public class RenderZebraSvc {
         Client client = ClientBuilder.newBuilder().register(MultiPartFeature.class).build();
 
         String path = URL + renderReq.getWidth() + "x" + renderReq.getHeight() + "/0/";
-		LOG.info("run label vs:" + path + " as type:" + renderReq.getRenderingType());
+        LOG.info("run label vs:" + path + " as type:" + renderReq.getRenderingType());
+        if (!isDefault(renderReq.getRenderingType())) {
+//            path = path + getSubPath(renderReq.getRenderingType());
+        }
         WebTarget target = client.target(path);
         Invocation.Builder request = target.request();
-        request.accept(renderReq.getRenderingType().getType());
+        if (isDefault(renderReq.getRenderingType())) {
+            request.accept(renderReq.getRenderingType().getType());
+        }
         Response response = request.post(Entity.entity(labelContent, APPLICATION_FORM_URLENCODED));
         if (200 == response.getStatus()) {
             byte[] body = response.readEntity(byte[].class);
@@ -87,6 +92,34 @@ public class RenderZebraSvc {
         LOG.error("***error ending response***");
         return null;
 
+    }
+//
+//    private static String getSubPath(RenderingType given) {
+//        if (given == null) {
+//            return "";
+//        }
+//
+//        if (RenderingType.PngImage == given) {
+//            String alt = given.getAltPath();
+//            LOG.info("skipping:" + alt);
+//            return "";
+//        }
+//        String alt = given.getAltPath();
+//        LOG.warn("for:" + given + ": using:" + alt + ":");
+//        return "/" + alt;
+//
+//    }
+
+    private static boolean isDefault(RenderingType given) {
+        if (given == null || RenderingType.PdfImage == given) {
+            return true;
+        }
+
+        if (RenderingType.PngImage == given) {
+            return false;
+        }
+        LOG.warn("not supported yet:" + given);
+        return true;
     }
 
     private static String toFileName(RenderRequest renderReq) {

@@ -11,7 +11,9 @@ public enum RenderingType {
     /**
      *
      */
-    PngImage(new MediaType("image", "png")), PdfImage(new MediaType("application","pdf"));
+    PngImage(new MediaType("image", "png")),    
+    Json(new MediaType("application", "json")),
+    PdfImage(new MediaType("application","pdf"));
     
     RenderingType(MediaType type) {
         this.type = type;
@@ -21,6 +23,14 @@ public enum RenderingType {
 
     public MediaType getType() {
         return type;
+    }
+    
+    public String getAltPath() {
+        if (this == PngImage) {
+            return "";
+        }
+        
+        return type.getSubtype();
     }
 
 	@Override
