@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
-import java.io.IOException; 
+import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
@@ -52,6 +52,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
     private static final String DATE_DISPLAYPATTERN = "MM/dd/yy @HH:mm:ss:SSSSS";
     private static final String OTHER_LINE_END = "\n";
     private static final String PRINTER_IMAGE_ICON = "/com/oldworldind/app/gui/zebralabel/zebralabelprt45842-0.png";
+//        private static final String WINDOWS_LINE_END = "\r\n";
 
     private static void checkZipFilePath(String pathToZipFiles) {
         File dir = new File(pathToZipFiles);
@@ -110,17 +111,17 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         initComponents();
     }
 
-    private int getProratedWidthDimension(Dimension input, double heightxFactor) {
-        int x = (int) (input.getHeight() * heightxFactor);
-
-        return x;
-    }
-
-    private int getProrateHeightDimension(Dimension input, double widthxFactor) {
-        int y = (int) (input.getWidth() * widthxFactor);
-
-        return y;
-    }
+//    private int getProratedWidthDimension(Dimension input, double heightxFactor) {
+//        int x = (int) (input.getHeight() * heightxFactor);
+//
+//        return x;
+//    }
+//
+//    private int getProrateHeightDimension(Dimension input, double widthxFactor) {
+//        int y = (int) (input.getWidth() * widthxFactor);
+//
+//        return y;
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
@@ -193,12 +194,14 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonLabelPrinterDiagnosticsMouseClicked(evt);
             }
+
         });
         jButtonLabelPrinterDiagnostics.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLabelPrinterDiagnosticsActionPerformed(evt);
             }
+
         });
 
         jMenu1.setText("File");
@@ -260,12 +263,14 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonLookupPrinterMouseClicked(evt);
             }
+
         });
         jButtonLookupPrinter.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLookupPrinteropenFile(evt);
             }
+
         });
 
         jTabbedPaneLabelSource.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -273,6 +278,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jTabbedPaneLabelSourceStateChanged(evt);
             }
+
         });
 
         barCodeSourceLabel.setText("Bar Code Source");
@@ -286,6 +292,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openButtonopenFile(evt);
             }
+
         });
 
         archivePathTextField.setText(pathToArchive);
@@ -430,6 +437,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
                     }
                 }
             }
+
         });
         jScrollPane2.setViewportView(fileInputJTable);
 
@@ -442,12 +450,14 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonPrintLabelFileMouseClicked(evt);
             }
+
         });
         jButtonPrintLabelFile.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPrintLabelFileActionPerformed(evt);
             }
+
         });
 
         jButtonCvtLabelFileToImage.setText("Render Image");
@@ -472,6 +482,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonParse2jButtonCalibrateClicked(evt);
             }
+
         });
 
         jButtonPrintLabelContent.setText("Print Label Content");
@@ -480,12 +491,14 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonPrintLabelContentMouseClicked(evt);
             }
+
         });
         jButtonPrintLabelContent.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPrintLabelContentActionPerformed(evt);
             }
+
         });
 
         jButtonClose.setText("Close");
@@ -494,6 +507,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCloseActionPerformed(evt);
             }
+
         });
 
         org.jdesktop.layout.GroupLayout jButtonPanelLayout = new org.jdesktop.layout.GroupLayout(jButtonPanel);
@@ -535,12 +549,14 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonParseClicked(evt);
             }
+
         });
         jButtonParse1.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonParse1ActionPerformed(evt);
             }
+
         });
 
         jButton2x4TestLabel.setText("2x4 Test Label");
@@ -549,12 +565,14 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2x4TestLabelMouseClicked(evt);
             }
+
         });
         jButton2x4TestLabel.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2x4TestLabelActionPerformed(evt);
             }
+
         });
 
         jButtonPrintTestLabel.setText("4x6 Test Label");
@@ -563,12 +581,14 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 doPrintTestLabelEvent(evt);
             }
+
         });
         jButtonPrintTestLabel.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPrintTestLabelActionPerformed(evt);
             }
+
         });
 
         org.jdesktop.layout.GroupLayout jPanelButtons2Layout = new org.jdesktop.layout.GroupLayout(jPanelButtons2);
@@ -600,6 +620,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonPrintConfigjButtonCalibrateClicked(evt);
             }
+
         });
 
         jButtonParse.setText("Calibrate Printer");
@@ -608,6 +629,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonCalibrateClicked(evt);
             }
+
         });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -939,8 +961,6 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         return "zpl".equals(ext) || "txt".equals(ext) || "wri".equals(ext);
     }
 
-    private static final String WINDOWS_LINE_END = "\r\n";
-
     private byte[] getCancelJobBytes() {
         String lineEnd = OTHER_LINE_END;
         StringBuilder buf = new StringBuilder(123);
@@ -1192,7 +1212,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
             log.setCaretPosition(log.getDocument().getLength());
         }
     }
-    
+
     private void doConvertLabelToImage(MouseEvent evt) {
 
         log.append("Event:" + evt.getButton() + " id:" + evt.getID() + OTHER_LINE_END);
@@ -1202,9 +1222,9 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 
         RenderZebraSvc toImgSvc = new RenderZebraSvc();
         // #TODO MCC 20-06-01 Implement call out to RenderZebraSvc
-       log.append("Got zebra Convert Service:" + OTHER_LINE_END + " via:" + toImgSvc);
+        log.append("Got zebra Convert Service:" + OTHER_LINE_END + " via:" + toImgSvc);
         log.setCaretPosition(log.getDocument().getLength());
-        
+
         PrinterFinderSvc svc = new PrinterFinderSvc();
 
         File labelFile = new File(archivePathTextField.getText() + File.separator + barCodeImageFileName.getText());
@@ -1357,6 +1377,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
     }
 
     private void doPrinterLookup(MouseEvent evt) {
+        LOG.debug("look up printer for ev:" + evt);
         PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
         DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
         PrintService printService[] = PrintServiceLookup.lookupPrintServices(

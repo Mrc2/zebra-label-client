@@ -24,8 +24,8 @@ public final class ZplFileParser {
     private static final Logger LOG = LogManager.getLogger(ZplFileParser.class);
 //    private static final String BYTES_UTF_8 = "UTF-8";
     private static final String BYTES_WINDOWS_WTF = "Cp1252";
-    private static final String START_OF_LABEL_CODE = "?XA";
-    private static final String END_OF_LABEL_CODE = "?XZ";
+//    private static final String START_OF_LABEL_CODE = "?XA";
+//    private static final String END_OF_LABEL_CODE = "?XZ";
     private static String END_OF_LABEL_LINE = "?PQ";
     static {
         if (SystemUtils.IS_OS_WINDOWS_XP) {

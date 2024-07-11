@@ -67,6 +67,7 @@ public class RenderZebraSvc {
         LOG.info("run label vs:" + path + " as type:" + renderReq.getRenderingType());
         if (!isDefault(renderReq.getRenderingType())) {
 //            path = path + getSubPath(renderReq.getRenderingType());
+            LOG.warn("rendering type not dfault:" + renderReq);
         }
         WebTarget target = client.target(path);
         Invocation.Builder request = target.request();
