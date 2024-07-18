@@ -1,0 +1,26 @@
+## This is an velocity template to indicate reasons why a Release information has not been Received
+## path:oldworldind/models/
+## key:graingerlabel.vsl
+##
+## for help with using Velocity go here:http://velocity.apache.org/engine/releases/velocity-1.6/user-guide.html
+##
+^XA
+
+^FX Label $labelinfo.labelname  $labelinfo.labelversion of a Series such as GRAIN1PK, GRAIN2PK, GRAIN4PK, or GRAIN6PK
+^FX Quantity of Labels to Render can be 1 to 1000
+^PQ $labelinfo.labelquantity
+
+^FX Top Section Grainger Pack Quantity and Grainger Customer Part# Centered in block
+^CF0,50
+^FO030,40 ^FB750,,,C,1 ^FD ($material.unitCaseCount) $material.customerMaterial ^FS
+
+^FX 2nd section with bar code Code128 Grainger Pack Quantity and Customer Part#. Human Readable turned off
+^BY5,2,75
+^FO100,120 ^BC N,100,N,Y,Y,N ^FD $material.unitCaseCount $material.customerMaterial ^FS
+
+
+^FX OWI Label and Catalog Part
+^CF0,60
+^FO 030,295 ^FB750,,,C,1 ^FD $material.vendorLabel $material.vendorCatalogMaterial^FS
+
+^XZ

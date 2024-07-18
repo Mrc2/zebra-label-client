@@ -1,0 +1,21 @@
+## Velocity Template.
+^XA
+
+^FX Label One of a Series
+^FX Top Section Grainger Pack Quantity and Grainger Customer Part#
+^CF0,60
+^FO220,50^FD(1) 48RH22^FS
+^CF0,30
+^FO50,125^GB700,3,3^FS
+
+^FX Third section with bar code Grainger Pack Quantity and Grainger Customer Part#.
+^BY5,2,75
+^FO100,175^BC^FD1 48RH22^FS
+
+^FO050,325^GB700,3,3^FS
+
+^FX OWI Label and Catalog Part
+^CF0,30
+^FO240,335^FDOW# DEF002^FS
+
+^XZ
