@@ -34,4 +34,5 @@ public class RouteFxLabelApp extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
 }
