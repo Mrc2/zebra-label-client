@@ -75,7 +75,13 @@ public class RenderZebraSvc {
             request.accept(renderReq.getRenderingType().getType());
         }
         Response response = request.post(Entity.entity(labelContent, APPLICATION_FORM_URLENCODED));
-        if (200 == response.getStatus()) {
+        if (Response.Status.NOT_ACCEPTABLE.getStatusCode() == response.getStatus()) {
+            LOG.error("Your count of retries has been surpassed  western tech forum failed on url=" + path + " as type:" + renderReq.getRenderingType());
+        }
+        if (Response.Status.NOT_FOUND.getStatusCode() == response.getStatus()) {
+            LOG.error("url response not found western tech forum failed on url=" + path + " as type:" + renderReq.getRenderingType());
+        }
+        if (Response.Status.OK.getStatusCode() == response.getStatus()) {
             byte[] body = response.readEntity(byte[].class);
             String fileName = toFileName(renderReq);
             File file = new File(fileName);
@@ -86,7 +92,8 @@ public class RenderZebraSvc {
             }
             return file;
         }
-        LOG.error("cannot render content:");
+
+        LOG.error("cannot render content: vs url=" + path + " as type:" + renderReq.getRenderingType());
         String body = response.readEntity(String.class);
         LOG.error("***error starting response***");
         LOG.error(body);

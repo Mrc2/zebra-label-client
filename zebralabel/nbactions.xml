@@ -63,6 +63,7 @@
         <actionName>CUSTOM-build site skip tests</actionName>
         <displayName>build site skip tests</displayName>
         <goals>
+            <goal>findbugs:findbugs</goal>
             <goal>site:site</goal>
         </goals>
         <properties>
@@ -70,17 +71,23 @@
         </properties>
     </action>
     <action>
-        <actionName>CUSTOM-do Analyze old</actionName>
-        <displayName>do Analyze old</displayName>
-        <goals>
-            <goal>analyze</goal>
-        </goals>
-    </action>
-        <action>
-        <actionName>CUSTOM-do Verify old</actionName>
+        <actionName>CUSTOM-do Verify</actionName>
         <displayName>do verify</displayName>
         <goals>
+            <goal>install</goal>
             <goal>verify</goal>
         </goals>
+    </action>
+    <action>
+        <actionName>CUSTOM-compile findbugs</actionName>
+        <displayName>compile findbugs</displayName>
+        <goals>
+            <goal>compile</goal>
+            <goal>test-compile</goal>
+            <goal>findbugs:findbugs</goal>
+        </goals>
+        <properties>
+            <skipTests>true</skipTests>
+        </properties>
     </action>
 </actions>

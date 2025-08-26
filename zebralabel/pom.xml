@@ -26,6 +26,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>11</maven.compiler.release>
+        <jersey.eeclient.version>2.40</jersey.eeclient.version>
+        <jersey.eeserver.version>2.40</jersey.eeserver.version>
     </properties>      
     <build>
         <!-- toggle this to name final deployment name only as zebralabel-1.0-SNAPSHOT.jar
@@ -36,7 +38,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>4.0.0-M15</version>
+                <version>4.0.0-M16</version>
                 <configuration>
                     <skipDeploy>true</skipDeploy>
                     <!--                    <reportPlugins>
@@ -119,11 +121,11 @@
         <plugins>
            
 
-            <plugin>
+<!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>3.9.0</version>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
@@ -227,35 +229,35 @@
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-multipart</artifactId>
-            <version>2.47</version>
+            <version>${jersey.eeclient.version}</version>
         </dependency>
         
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
-            <version>2.47</version>
+            <version>${jersey.eeclient.version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
-            <version>2.47</version>
+            <version>${jersey.eeserver.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>17.0.15</version>
+            <version>24.0.2-ea+1</version>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>17.0.15</version>
+            <version>24.0.2-ea+1</version>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>17.0.15</version>
+            <version>24.0.2-ea+1</version>
             <type>jar</type>
         </dependency>
     </dependencies>

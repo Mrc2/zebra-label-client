@@ -32,11 +32,12 @@ public class LabelAryClientTest {
     private static final String HOME = "." + '/'; // "." + File.separator; // using / for Microsoft Path
     private final String ziplh = HOME + "somefileh.zpl";
     private final String zipls = HOME + "somefiles.zpl";
+    private static final Boolean CLEAN_DIRECTIVE = false;
 
     private final String zplGrainger = HOME + "Grainger1pk_demo.txt";
 
     @Test
-    public void testService4() throws IOException {
+    public void testService4ToPdf() throws IOException {
 
         RenderRequest rr = RenderRequest.getPdfRequest(6, 4, "mypdfFile_");
         String partialFileRes = zipls;
@@ -55,11 +56,11 @@ public class LabelAryClientTest {
 
         LOG.info("ckf:" + file.getAbsolutePath());
 
-        doCleanup(15, file, true);
+        doCleanup(15, file, CLEAN_DIRECTIVE);
     }
 
     @Test
-    public void testService3() throws IOException {
+    public void testService3ToPng() throws IOException {
 
         RenderRequest rr = RenderRequest.getPngRequest(2, 4, "mypnghFile_");
 
@@ -77,11 +78,11 @@ public class LabelAryClientTest {
         Assert.assertNotNull("sb ok", file);
 
         LOG.info("ckf:" + file.getAbsolutePath());
-        doCleanup(3, file, true);
+        doCleanup(3, file, CLEAN_DIRECTIVE);
     }
 
     @Test
-    public void testServiceX() throws IOException {
+    public void testServiceXtoPng() throws IOException {
 
         RenderRequest rr = RenderRequest.getPngRequest(2, 4, "mypnghFile_");
 
@@ -110,11 +111,11 @@ public class LabelAryClientTest {
         Assert.assertNotNull("sb ok", file);
 
         LOG.info("ckf:" + file.getAbsolutePath());
-        doCleanup(3, file, true);
+        doCleanup(3, file, CLEAN_DIRECTIVE);
     }
 
     @Test
-    public void testService() throws IOException {
+    public void testServiceToPdf() throws IOException {
         String targFile = "label.pdf";
         Client client = ClientBuilder.newBuilder().register(MultiPartFeature.class).build();
         // adjust print density (8dpmm), label width (4 inches), label height (6 inches), and label index (0) as necessary
@@ -122,14 +123,20 @@ public class LabelAryClientTest {
         Invocation.Builder request = target.request();
 
 //         MediaType.A
-        request.accept("application/pdf"); // omit this line to get PNG images back
+        String pdfOnly = RenderingType.PdfImage.name();
+        String oldForm = "application/pdf";
+//        if (!oldForm.equals(pdfOnly)) {
+//            request.accept(pdfOnly);
+//        } else {
+            request.accept("application/pdf"); // omit this line to get PNG images back
+//        }
         Response response = request.post(Entity.entity(zpl, APPLICATION_FORM_URLENCODED));
 
         if (200 == response.getStatus()) {
             byte[] body = response.readEntity(byte[].class);
             File file = new File(targFile); // change file name for PNG images
             Files.write(file.toPath(), body);
-            doCleanup(5, file, true);
+            doCleanup(5, file, CLEAN_DIRECTIVE);
         } else {
             String body = response.readEntity(String.class);
             LOG.error(body);

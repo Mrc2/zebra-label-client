@@ -11,9 +11,9 @@ public enum RenderingType {
     /**
      *
      */
-    PngImage(new MediaType("image", "png")),    
-    Json(new MediaType("application", "json")),
-    PdfImage(new MediaType("application","pdf"));
+    PngImage(new MediaType("image", "png")),    //image/png
+    Json(new MediaType("application", "json")), // application/json
+    PdfImage(new MediaType("application","pdf")); // application/pdf
     
     RenderingType(MediaType type) {
         this.type = type;
