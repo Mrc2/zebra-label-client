@@ -1,7 +1,5 @@
 package com.oldworldind.app.gui.zebralabel;
 
-import static java.nio.charset.Charset.defaultCharset;
-
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
@@ -38,6 +36,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jdesktop.layout.GroupLayout;
 
 /**
  *
@@ -46,6 +45,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class LabelPrintManagerForm extends javax.swing.JPanel {
     private static final long serialVersionUID = 3366893204177851100L;
+    public static final int ORIGIN = 1;
     private static final Logger LOG = LogManager.getLogger(LabelPrintManagerForm.class);
     public static final String FILETYPE_XREF = "Xref";
     public static final String FILETYPE_ZPL = "txt/wri";
@@ -230,22 +230,28 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 
         jMenu9.setText("jMenu9");
 
-        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        javax.swing.GroupLayout grp1 = new javax.swing.GroupLayout(jPanel1);
+        grp1.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            jPanel1Layout.createParallelGroup(GroupLayout.LEADING)
                 .add(0, 100, Short.MAX_VALUE));
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            jPanel1Layout.createParallelGroup(GroupLayout.LEADING)
                 .add(0, 100, Short.MAX_VALUE));
 
-        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
+        GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            jPanel2Layout.createParallelGroup(GroupLayout.LEADING)
                 .add(0, 100, Short.MAX_VALUE));
+        javax.swing.GroupLayout grp = new javax.swing.GroupLayout(jPanel2);
+        grp.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            jPanel2Layout.createParallelGroup(GroupLayout.LEADING)
                 .add(0, 100, Short.MAX_VALUE));
 
         setBackground(new java.awt.Color(174, 208, 234));
@@ -299,43 +305,43 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 
         archivePathLabel.setText("Archive Path");
 
-        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
+        GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            jPanel3Layout.createParallelGroup(GroupLayout.LEADING)
                 .add(jPanel3Layout.createSequentialGroup()
                     .add(22, 22, 22)
-                    .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel3Layout.createParallelGroup(GroupLayout.LEADING)
                         .add(jPanel3Layout.createSequentialGroup()
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 9, GroupLayout.PREFERRED_SIZE)
                             .add(archivePathLabel)
                             .add(10, 10, 10))
                         .add(barCodeSourceLabel))
-                    .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel3Layout.createParallelGroup(GroupLayout.LEADING)
                         .add(jPanel3Layout.createSequentialGroup()
                             .add(38, 38, 38)
-                            .add(barCodeImageFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 115,
-                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(barCodeImageFileName, GroupLayout.PREFERRED_SIZE, 115,
+                                GroupLayout.PREFERRED_SIZE)
                             .add(18, 18, 18)
                             .add(openButton)
                             .add(0, 0, Short.MAX_VALUE))
                         .add(jPanel3Layout.createSequentialGroup()
                             .add(6, 6, 6)
-                            .add(archivePathTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)))
+                            .add(archivePathTextField, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)))
                     .add(73, 73, 73)));
         jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            jPanel3Layout.createParallelGroup(GroupLayout.LEADING)
                 .add(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
-                    .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(barCodeImageFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
-                            org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jPanel3Layout.createParallelGroup(GroupLayout.BASELINE)
+                        .add(barCodeImageFileName, GroupLayout.PREFERRED_SIZE,
+                            GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .add(barCodeSourceLabel)
                         .add(openButton))
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                    .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(archivePathTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
-                            org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jPanel3Layout.createParallelGroup(GroupLayout.BASELINE)
+                        .add(archivePathTextField, GroupLayout.PREFERRED_SIZE,
+                            GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .add(archivePathLabel))
                     .addContainerGap(91, Short.MAX_VALUE)));
 
@@ -345,17 +351,17 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         jBarByteTextArea.setRows(5);
         jScrollPane1.setViewportView(jBarByteTextArea);
 
-        org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
+        GroupLayout jPanel4Layout = new GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            jPanel4Layout.createParallelGroup(GroupLayout.LEADING)
                 .add(jPanel4Layout.createSequentialGroup()
                     .addContainerGap()
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+                    .add(jScrollPane1, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
                     .addContainerGap()));
         jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE));
+            jPanel4Layout.createParallelGroup(GroupLayout.LEADING)
+                .add(jScrollPane1, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE));
 
         jTabbedPaneLabelSource.addTab("Bar Code Content", jPanel4);
 
@@ -364,48 +370,48 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         log.setName("log"); // NOI18N
         jScrollPane4.setViewportView(log);
 
-        org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
+        GroupLayout jPanel5Layout = new GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            jPanel5Layout.createParallelGroup(GroupLayout.LEADING)
                 .add(jPanel5Layout.createSequentialGroup()
                     .add(20, 20, 20)
-                    .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 411,
-                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jScrollPane4, GroupLayout.PREFERRED_SIZE, 411,
+                        GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(15, Short.MAX_VALUE)));
         jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            jPanel5Layout.createParallelGroup(GroupLayout.LEADING)
                 .add(jPanel5Layout.createSequentialGroup()
                     .addContainerGap()
-                    .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)));
+                    .add(jScrollPane4, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)));
 
         jTabbedPaneLabelSource.addTab("Status Log", jPanel5);
 
-        org.jdesktop.layout.GroupLayout systemPanelLayout = new org.jdesktop.layout.GroupLayout(systemPanel);
+        GroupLayout systemPanelLayout = new GroupLayout(systemPanel);
         systemPanel.setLayout(systemPanelLayout);
         systemPanelLayout.setHorizontalGroup(
-            systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            systemPanelLayout.createParallelGroup(GroupLayout.LEADING)
                 .add(systemPanelLayout.createSequentialGroup()
                     .add(20, 20, 20)
                     .add(jPrinterIdentifierLabel)
                     .add(16, 16, 16)
-                    .add(jTextPrinterName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 147,
-                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jTextPrinterName, GroupLayout.PREFERRED_SIZE, 147,
+                        GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(jButtonLookupPrinter)
-                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .add(org.jdesktop.layout.GroupLayout.TRAILING, systemPanelLayout.createSequentialGroup()
-                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jTabbedPaneLabelSource, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 467,
-                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(GroupLayout.TRAILING, systemPanelLayout.createSequentialGroup()
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jTabbedPaneLabelSource, GroupLayout.PREFERRED_SIZE, 467,
+                        GroupLayout.PREFERRED_SIZE)
                     .add(35, 35, 35)));
         systemPanelLayout.setVerticalGroup(
-            systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            systemPanelLayout.createParallelGroup(GroupLayout.LEADING)
                 .add(systemPanelLayout.createSequentialGroup()
                     .addContainerGap()
-                    .add(systemPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jTextPrinterName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
-                            org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(systemPanelLayout.createParallelGroup(GroupLayout.BASELINE)
+                        .add(jTextPrinterName, GroupLayout.PREFERRED_SIZE,
+                            GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .add(jPrinterIdentifierLabel)
                         .add(jButtonLookupPrinter))
                     .add(18, 18, 18)
@@ -510,14 +516,14 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 
         });
 
-        org.jdesktop.layout.GroupLayout jButtonPanelLayout = new org.jdesktop.layout.GroupLayout(jButtonPanel);
+        GroupLayout jButtonPanelLayout = new GroupLayout(jButtonPanel);
         jButtonPanel.setLayout(jButtonPanelLayout);
         jButtonPanelLayout.setHorizontalGroup(
-            jButtonPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            jButtonPanelLayout.createParallelGroup(GroupLayout.LEADING)
                 .add(jButtonPanelLayout.createSequentialGroup()
                     .add(252, 252, 252)
                     .add(jButtonParse2)
-                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .add(jButtonPanelLayout.createSequentialGroup()
                     .add(25, 25, 25)
                     .add(jButtonPrintLabelFile)
@@ -528,15 +534,15 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
                     .add(jButtonCvtLabelFileToImage)
                     .add(22, 131, Short.MAX_VALUE)));
         jButtonPanelLayout.setVerticalGroup(
-            jButtonPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(org.jdesktop.layout.GroupLayout.TRAILING, jButtonPanelLayout.createSequentialGroup()
-                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jButtonPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+            jButtonPanelLayout.createParallelGroup(GroupLayout.LEADING)
+                .add(GroupLayout.TRAILING, jButtonPanelLayout.createSequentialGroup()
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jButtonPanelLayout.createParallelGroup(GroupLayout.BASELINE)
                         .add(jButtonPrintLabelFile)
                         .add(jButtonPrintLabelContent)
                         .add(jButtonClose)
                         .add(jButtonCvtLabelFileToImage))
-                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, GroupLayout.DEFAULT_SIZE,
                         Short.MAX_VALUE)
                     .add(jButtonParse2)
                     .addContainerGap()));
@@ -591,28 +597,28 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 
         });
 
-        org.jdesktop.layout.GroupLayout jPanelButtons2Layout = new org.jdesktop.layout.GroupLayout(jPanelButtons2);
+        GroupLayout jPanelButtons2Layout = new GroupLayout(jPanelButtons2);
         jPanelButtons2.setLayout(jPanelButtons2Layout);
         jPanelButtons2Layout.setHorizontalGroup(
-            jPanelButtons2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanelButtons2Layout.createSequentialGroup()
+            jPanelButtons2Layout.createParallelGroup(GroupLayout.LEADING)
+                .add(GroupLayout.TRAILING, jPanelButtons2Layout.createSequentialGroup()
                     .addContainerGap()
                     .add(jButtonPrintTestLabel)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(jButton2x4TestLabel)
-                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, GroupLayout.DEFAULT_SIZE,
                         Short.MAX_VALUE)
                     .add(jButtonParse1)
                     .addContainerGap()));
         jPanelButtons2Layout.setVerticalGroup(
-            jPanelButtons2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            jPanelButtons2Layout.createParallelGroup(GroupLayout.LEADING)
                 .add(jPanelButtons2Layout.createSequentialGroup()
                     .addContainerGap()
-                    .add(jPanelButtons2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jPanelButtons2Layout.createParallelGroup(GroupLayout.BASELINE)
                         .add(jButtonParse1)
                         .add(jButton2x4TestLabel)
                         .add(jButtonPrintTestLabel))
-                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         jButtonPrintConfig.setText("Print Label Config");
         jButtonPrintConfig.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -632,54 +638,54 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
 
         });
 
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+        GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            layout.createParallelGroup(GroupLayout.LEADING)
                 .add(layout.createSequentialGroup()
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createParallelGroup(GroupLayout.LEADING)
                         .add(layout.createSequentialGroup()
                             .add(31, 31, 31)
-                            .add(systemPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 471,
-                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(systemPanel, GroupLayout.PREFERRED_SIZE, 471,
+                                GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
-                                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jScrollPane2, GroupLayout.PREFERRED_SIZE,
+                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .add(layout.createSequentialGroup()
                             .addContainerGap()
-                            .add(jButtonPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 565,
-                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jButtonPanel, GroupLayout.PREFERRED_SIZE, 565,
+                                GroupLayout.PREFERRED_SIZE))
                         .add(layout.createSequentialGroup()
                             .add(33, 33, 33)
-                            .add(jPanelButtons2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
-                                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jPanelButtons2, GroupLayout.PREFERRED_SIZE,
+                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .add(layout.createSequentialGroup()
                             .add(42, 42, 42)
-                            .add(jButtonParse, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129,
-                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jButtonParse, GroupLayout.PREFERRED_SIZE, 129,
+                                GroupLayout.PREFERRED_SIZE)
                             .add(18, 18, 18)
                             .add(jButtonPrintConfig)))
-                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            layout.createParallelGroup(GroupLayout.LEADING)
                 .add(layout.createSequentialGroup()
                     .add(20, 20, 20)
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(systemPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
-                            org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 261,
-                            org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createParallelGroup(GroupLayout.LEADING)
+                        .add(systemPanel, GroupLayout.PREFERRED_SIZE,
+                            GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .add(jScrollPane2, GroupLayout.PREFERRED_SIZE, 261,
+                            GroupLayout.PREFERRED_SIZE))
                     .add(18, 18, 18)
-                    .add(jButtonPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
-                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jButtonPanel, GroupLayout.PREFERRED_SIZE,
+                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 17, Short.MAX_VALUE)
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(layout.createParallelGroup(GroupLayout.BASELINE)
                         .add(jButtonParse)
-                        .add(jButtonPrintConfig, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29,
-                            org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jButtonPrintConfig, GroupLayout.PREFERRED_SIZE, 29,
+                            GroupLayout.PREFERRED_SIZE))
                     .add(18, 18, 18)
-                    .add(jPanelButtons2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
-                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)));
+                    .add(jPanelButtons2, GroupLayout.PREFERRED_SIZE,
+                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)));
     }// </editor-fold>
 
     private void openButtonopenFile(java.awt.event.ActionEvent evt) {
@@ -1557,7 +1563,7 @@ public class LabelPrintManagerForm extends javax.swing.JPanel {
         log.append("PrinterLabel File Button clicked!" + OTHER_LINE_END);
         log.setCaretPosition(log.getDocument().getLength());
 
-        Charset local = defaultCharset();
+        Charset local = Charset.defaultCharset();
 
         byte[] labelBytes = jBarByteTextArea.getText().getBytes(local);
 

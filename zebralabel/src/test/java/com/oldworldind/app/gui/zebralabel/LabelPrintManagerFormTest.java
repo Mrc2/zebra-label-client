@@ -1,5 +1,7 @@
 package com.oldworldind.app.gui.zebralabel;
 
+import static java.nio.charset.Charset.defaultCharset;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
@@ -8,13 +10,11 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Level;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -69,7 +69,7 @@ public class LabelPrintManagerFormTest {
 
         try {
             String labelContent = new String(demo24);
-            FileUtils.writeStringToFile(sample2x4, labelContent);
+            FileUtils.writeStringToFile(sample2x4, labelContent, defaultCharset());
             LOG.log(Level.WARN,
                     "Temp File written:" + sample2x4);
         } catch (Exception ex) {
