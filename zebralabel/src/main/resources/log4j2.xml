@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="debug" strict="true" name="XMLConfigTest"
-               packages="org.apache.logging.log4j.test"> 
+               packages="org.apache.logging.log4j.test">
+      <Properties>
+        <Property name="filename">/opt/logs/owizebralabels.stdout.log</Property>
+    </Properties>
     <Filter type="ThresholdFilter" level="trace"/>
     <Appenders> 
-        <RollingFile name="RollingFile" fileName="owizebralabels.stdout.log"
+        <RollingFile name="RollingFile" fileName="${filename}"
                      filePattern="logs/owizebralabels.stdout%d{yyyy-MM-dd-HH}-%i.log.gz">
             <PatternLayout class="org.apache.log4j.PatternLayout">
-                <pattern>%highlight{%d{HH:mm:ss,SSS} [%t] [%X{user.name}] %-5p - %c{6} %m:}%n" </pattern>
+                <pattern>%highlight{%d{HH:mm:ss,SSS} [%t] [%X{user.name}] %-5p - %c{1}:%M:%L: %m%n" </pattern>
             </PatternLayout>
             <Filters>
                 <filter class="org.apache.log4j.varia.LevelRangeFilter">
@@ -49,15 +52,19 @@
     </Appenders>
     
     <Loggers>
-        <Logger name="com.oldworldind" level="trace" >
+        <Root level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Root>
+        
+        <Logger name="com.oldworldind" level="trace" additivity="false">
             <AppenderRef ref="RollingFile"/>
             <AppenderRef ref="Console"/>
         </Logger>
 
-        <Root level="info"> 
+        <Logger name="org.apache" level="info" additivity="false">
             <Appender-ref ref="RollingFile" />
             <Appender-ref ref="Console" />
             <!--<Appender-ref ref="EMAIL" />-->
-        </Root> 
+        </Logger>
     </Loggers>
 </Configuration>
